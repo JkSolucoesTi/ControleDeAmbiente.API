@@ -30,21 +30,45 @@ namespace ControleDeAmbiente.API.Controllers
         }
 
         [HttpGet("Android")]
-        public async Task<IEnumerable<Android>> ObterDesenvolvedorAndroid()
+        public async Task<ActionResult<IEnumerable<Android>>> ObterDesenvolvedorAndroid()
         {
-            return await _androidRepositorio.PegarTodos().ToListAsync();
+            try
+            {
+                return await _androidRepositorio.PegarTodos().ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+
         }
 
         [HttpGet("Api")]
-        public async Task<IEnumerable<Api>> ObterDesenvolvedorApi()
+        public async Task<ActionResult<IEnumerable<Api>>> ObterDesenvolvedorApi()
         {
-            return await _apiRepositorio.PegarTodos().ToListAsync();
+            try
+            {
+                return await _apiRepositorio.PegarTodos().ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+
         }
 
         [HttpGet("Ios")]
-        public async Task<IEnumerable<Ios>> ObterDesenvolvedorIos()
+        public async Task<ActionResult<IEnumerable<Ios>>> ObterDesenvolvedorIos()
         {
-            return await _iosRepositorio.PegarTodos().ToListAsync();
+            try
+            {
+                return await _iosRepositorio.PegarTodos().ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+
         }
 
 

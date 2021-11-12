@@ -23,10 +23,10 @@ namespace ControleDeAmbiente.DAL.Repositorio
             {
                 return _contexto.Set<TEntity>();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
 
@@ -38,17 +38,40 @@ namespace ControleDeAmbiente.DAL.Repositorio
                 registro.State = EntityState.Modified;
                 await _contexto.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
 
         public async Task<TEntity> PegarPorId(int Id)
         {
-            var registro = await _contexto.Set<TEntity>().FindAsync(Id);
-            return registro;
+            try
+            {
+                var registro = await _contexto.Set<TEntity>().FindAsync(Id);
+                return registro;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+           
+        }
+
+        public async Task Inserir(TEntity entity)
+        {
+            try
+            {
+                await _contexto.Set<TEntity>().AddAsync(entity);
+                await _contexto.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
     }
 }

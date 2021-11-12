@@ -21,7 +21,7 @@ namespace ControleDeAmbiente.DAL.Mapeamento
 
             builder.HasData(
             new Android
-            {
+            {               
                 Nome = "android01"
             },
             new Android

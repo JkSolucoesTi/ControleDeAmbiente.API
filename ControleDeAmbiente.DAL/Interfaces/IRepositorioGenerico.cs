@@ -11,5 +11,6 @@ namespace ControleDeAmbiente.DAL.Interfaces
         IQueryable<TEntity> PegarTodos();
         Task <TEntity> PegarPorId(int id);
         Task Atualizar(TEntity entity);
+        Task Inserir(TEntity entity);
     }
 }
