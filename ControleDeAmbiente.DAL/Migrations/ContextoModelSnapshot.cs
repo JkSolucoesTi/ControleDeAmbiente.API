@@ -32,16 +32,22 @@ namespace ControleDeAmbiente.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Chamado")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Descricao")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<int>("IosId")
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -62,7 +68,9 @@ namespace ControleDeAmbiente.DAL.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -77,7 +85,9 @@ namespace ControleDeAmbiente.DAL.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -92,7 +102,9 @@ namespace ControleDeAmbiente.DAL.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -102,19 +114,19 @@ namespace ControleDeAmbiente.DAL.Migrations
             modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Ambiente", b =>
                 {
                     b.HasOne("ControleDeAmbiente.BLL.Model.Android", "Android")
-                        .WithMany("Ambientes")
+                        .WithMany()
                         .HasForeignKey("AndroidId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ControleDeAmbiente.BLL.Model.Api", "Api")
-                        .WithMany("Ambientes")
+                        .WithMany()
                         .HasForeignKey("ApiId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ControleDeAmbiente.BLL.Model.Ios", "Ios")
-                        .WithMany("Ambientes")
+                        .WithMany()
                         .HasForeignKey("IosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

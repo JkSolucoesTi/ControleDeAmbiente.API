@@ -37,10 +37,13 @@ namespace ControleDeAmbiente.DAL.Repositorio
         {
             try
             {
-                return _contexto.Ambientes
-                    .Include(a => a.Android)
-                    .Include(i => i.Ios)
-                    .Include(a => a.Api);
+                var ambiente = _contexto.Ambientes
+                   .Include(a => a.Android)
+                   .Include(i => i.Ios)
+                   .Include(a => a.Api);
+
+
+                return ambiente;
                     
             }
             catch (Exception)

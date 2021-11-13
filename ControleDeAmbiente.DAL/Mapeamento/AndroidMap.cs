@@ -16,24 +16,7 @@ namespace ControleDeAmbiente.DAL.Mapeamento
 
             builder.Property(a => a.Nome).HasMaxLength(50);
             builder.Property(a => a.Nome).IsRequired();
-
-            builder.HasMany(a => a.Ambientes).WithOne(c => c.Android);
-
-            builder.HasData(
-            new Android
-            {               
-                Nome = "android01"
-            },
-            new Android
-            {
-                Nome = "android02"
-            }
-            ,
-            new Android
-            {
-                Nome = "android03"
-            }
-            );
+         
         }
     }
 }
