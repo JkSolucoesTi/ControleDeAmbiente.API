@@ -23,13 +23,13 @@ namespace ControleDeAmbiente.API.Controllers
             _ambienteRepositorio = ambienteRepositorio;
         }
 
-        [HttpGet]
+        [HttpGet()]
         public async Task<ActionResult<IEnumerable<Ambiente>>> ObterAmbientes()
         {
             try
             {
                 var ambientes = await _ambienteRepositorio.PegarTodos().ToListAsync();
-                return ambientes;
+                return Ok(ambientes);
             }
             catch (Exception ex)
             {
@@ -44,7 +44,7 @@ namespace ControleDeAmbiente.API.Controllers
             try
             {
                 var ambientes = await _ambienteRepositorio.PegarPorId(Id);
-                return ambientes;
+                return Ok(ambientes);
 
             } catch (Exception ex)
             {
@@ -52,7 +52,7 @@ namespace ControleDeAmbiente.API.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost()]
         public async Task<ActionResult<Ambiente>> Inserir(AmbienteViewModel ambiente)
         {
             try

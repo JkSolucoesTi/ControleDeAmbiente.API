@@ -34,7 +34,7 @@ namespace ControleDeAmbiente.API.Controllers
         {
             try
             {
-                return await _androidRepositorio.PegarTodos().ToListAsync();
+                return Ok(await _androidRepositorio.PegarTodos().ToListAsync());
             }
             catch (Exception ex)
             {
@@ -48,7 +48,7 @@ namespace ControleDeAmbiente.API.Controllers
         {
             try
             {
-                return await _apiRepositorio.PegarTodos().ToListAsync();
+                return Ok(await _apiRepositorio.PegarTodos().ToListAsync());
             }
             catch (Exception ex)
             {
@@ -62,7 +62,7 @@ namespace ControleDeAmbiente.API.Controllers
         {
             try
             {
-                return await _iosRepositorio.PegarTodos().ToListAsync();
+                return Ok(await _iosRepositorio.PegarTodos().ToListAsync());
             }
             catch (Exception ex)
             {
