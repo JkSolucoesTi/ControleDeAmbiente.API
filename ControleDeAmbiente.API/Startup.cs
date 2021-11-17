@@ -34,6 +34,7 @@ namespace ControleDeAmbiente.API
             services.AddScoped<IApiRepositorio, ApiRepositorio>();
             services.AddScoped<IIosRepositorio, IosRepositorio>();
             services.AddScoped<IAndroidRepositorio, AndroidRepositorio>();
+            services.AddScoped<INegocioRepositorio , NegocioRepositorio>();
 
 
             services.AddControllers()

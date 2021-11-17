@@ -2,7 +2,7 @@
 
 namespace ControleDeAmbiente.DAL.Migrations
 {
-    public partial class createdatabase : Migration
+    public partial class DataBaseInicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,6 +46,19 @@ namespace ControleDeAmbiente.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Negocio",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Negocio", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Ambientes",
                 columns: table => new
                 {
@@ -53,10 +66,11 @@ namespace ControleDeAmbiente.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(maxLength: 50, nullable: false),
                     Chamado = table.Column<string>(maxLength: 50, nullable: false),
-                    Descricao = table.Column<string>(maxLength: 100, nullable: false),
+                    Descricao = table.Column<string>(maxLength: 50, nullable: false),
                     ApiId = table.Column<int>(nullable: false),
                     IosId = table.Column<int>(nullable: false),
-                    AndroidId = table.Column<int>(nullable: false)
+                    AndroidId = table.Column<int>(nullable: false),
+                    NegocioId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,6 +93,12 @@ namespace ControleDeAmbiente.DAL.Migrations
                         principalTable: "Ios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Ambientes_Negocio_NegocioId",
+                        column: x => x.NegocioId,
+                        principalTable: "Negocio",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -95,6 +115,11 @@ namespace ControleDeAmbiente.DAL.Migrations
                 name: "IX_Ambientes_IosId",
                 table: "Ambientes",
                 column: "IosId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ambientes_NegocioId",
+                table: "Ambientes",
+                column: "NegocioId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -110,6 +135,9 @@ namespace ControleDeAmbiente.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Ios");
+
+            migrationBuilder.DropTable(
+                name: "Negocio");
         }
     }
 }

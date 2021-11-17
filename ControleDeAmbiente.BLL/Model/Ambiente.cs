@@ -19,5 +19,8 @@ namespace ControleDeAmbiente.BLL.Model
 
         public int AndroidId { get; set; }
         public Android Android{ get; set; }
+
+        public int NegocioId { get; set; }
+        public Negocio Negocio { get; set; }
     }
 }

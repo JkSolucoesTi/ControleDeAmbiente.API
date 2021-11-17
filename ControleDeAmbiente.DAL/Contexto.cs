@@ -13,6 +13,7 @@ namespace ControleDeAmbiente.DAL
         public DbSet<Android> Android { get; set; }
         public DbSet<Ios> Ios { get; set; }
         public DbSet<Api> Api { get; set; }
+        public DbSet<Negocio> Negocio { get; set; }
 
         public Contexto(DbContextOptions<Contexto> opcoes) : base(opcoes)
         {
@@ -26,6 +27,7 @@ namespace ControleDeAmbiente.DAL
             builder.ApplyConfiguration(new AndroidMap());
             builder.ApplyConfiguration(new IosMap());
             builder.ApplyConfiguration(new ApiMap());
+            builder.ApplyConfiguration(new NegocioMap());
         }
     }
 }

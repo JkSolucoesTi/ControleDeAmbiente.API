@@ -23,6 +23,7 @@ namespace ControleDeAmbiente.DAL.Repositorio
             {
                 return await _contexto.Ambientes.Include(a => a.Android)
                     .Include(i => i.Ios).Include(a => a.Api)
+                    .Include(n => n.Negocio)
                     .FirstOrDefaultAsync(ab => ab.Id == id);
                 
             }
@@ -40,7 +41,9 @@ namespace ControleDeAmbiente.DAL.Repositorio
                 var ambiente = _contexto.Ambientes
                    .Include(a => a.Android)
                    .Include(i => i.Ios)
-                   .Include(a => a.Api);
+                   .Include(a => a.Api)
+                   .Include(n => n.Negocio)
+                   ;
 
 
                 return ambiente;

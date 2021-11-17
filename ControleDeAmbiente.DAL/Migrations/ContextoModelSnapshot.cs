@@ -38,10 +38,13 @@ namespace ControleDeAmbiente.DAL.Migrations
 
                     b.Property<string>("Descricao")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<int>("IosId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NegocioId")
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
@@ -56,6 +59,8 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.HasIndex("ApiId");
 
                     b.HasIndex("IosId");
+
+                    b.HasIndex("NegocioId");
 
                     b.ToTable("Ambientes");
                 });
@@ -111,6 +116,23 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.ToTable("Ios");
                 });
 
+            modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Negocio", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Negocio");
+                });
+
             modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Ambiente", b =>
                 {
                     b.HasOne("ControleDeAmbiente.BLL.Model.Android", "Android")
@@ -128,6 +150,12 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.HasOne("ControleDeAmbiente.BLL.Model.Ios", "Ios")
                         .WithMany()
                         .HasForeignKey("IosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ControleDeAmbiente.BLL.Model.Negocio", "Negocio")
+                        .WithMany()
+                        .HasForeignKey("NegocioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
