@@ -33,5 +33,19 @@ namespace ControleDeAmbiente.API.Controllers
             }
 
         }
+
+        [HttpGet("{Id}")]
+        public async Task<ActionResult<IEnumerable<Negocio>>> ObterAnalistaDeNegocioPorId(int Id)
+        {
+            try
+            {
+                return Ok(await _negocioRepositorio.PegarPorId(Id));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+
+        }
     }
 }

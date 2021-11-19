@@ -15,17 +15,17 @@ namespace ControleDeAmbiente.API.Controllers
     public class DesenvolvedoresController : ControllerBase
     {
         private readonly IAndroidRepositorio _androidRepositorio;
-        private readonly IApiRepositorio _apiRepositorio;
+        private readonly IWebRepositorio _webRepositorio;
         private readonly IIosRepositorio _iosRepositorio;
 
         public DesenvolvedoresController(
             IAndroidRepositorio androidRepositorio,
-            IApiRepositorio apiRepositorio,
+            IWebRepositorio webRepositorio,
             IIosRepositorio iosRepositorio            
             )
         {
             _androidRepositorio = androidRepositorio;
-            _apiRepositorio = apiRepositorio;
+            _webRepositorio = webRepositorio;
             _iosRepositorio = iosRepositorio;
         }
 
@@ -35,7 +35,8 @@ namespace ControleDeAmbiente.API.Controllers
             try
             {
                 return Ok(await _androidRepositorio.PegarTodos().ToListAsync());
-            }
+
+               }
             catch (Exception ex)
             {
                 return NotFound(ex);
@@ -43,12 +44,13 @@ namespace ControleDeAmbiente.API.Controllers
 
         }
 
-        [HttpGet("Api")]
-        public async Task<ActionResult<IEnumerable<Api>>> ObterDesenvolvedorApi()
+        [HttpGet("Android/{Id}")]
+        public async Task<ActionResult<IEnumerable<Android>>> ObterDesenvolvedorAndroidPorId(int Id)
         {
             try
             {
-                return Ok(await _apiRepositorio.PegarTodos().ToListAsync());
+                return Ok(await _androidRepositorio.PegarPorId(Id));
+
             }
             catch (Exception ex)
             {
@@ -56,6 +58,36 @@ namespace ControleDeAmbiente.API.Controllers
             }
 
         }
+
+        [HttpGet("Web")]
+        public async Task<ActionResult<IEnumerable<Web>>> ObterDesenvolvedorApi()
+        {
+            try
+            {
+                return Ok(await _webRepositorio.PegarTodos().ToListAsync());
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+
+        }
+
+        [HttpGet("Web/{Id}")]
+        public async Task<ActionResult<IEnumerable<Web>>> ObterDesenvolvedorWevPorId(int Id)
+        {
+            try
+            {
+                return Ok(await _webRepositorio.PegarPorId(Id));
+
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+
+        }
+
 
         [HttpGet("Ios")]
         public async Task<ActionResult<IEnumerable<Ios>>> ObterDesenvolvedorIos()
@@ -63,6 +95,21 @@ namespace ControleDeAmbiente.API.Controllers
             try
             {
                 return Ok(await _iosRepositorio.PegarTodos().ToListAsync());
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+
+        }
+
+        [HttpGet("Ios/{Id}")]
+        public async Task<ActionResult<IEnumerable<Ios>>> ObterDesenvolvedorIosPorId(int Id)
+        {
+            try
+            {
+                return Ok(await _iosRepositorio.PegarPorId(Id));
+
             }
             catch (Exception ex)
             {

@@ -28,9 +28,6 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.Property<int>("AndroidId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ApiId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Chamado")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
@@ -52,15 +49,18 @@ namespace ControleDeAmbiente.DAL.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<int>("WebId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AndroidId");
 
-                    b.HasIndex("ApiId");
-
                     b.HasIndex("IosId");
 
                     b.HasIndex("NegocioId");
+
+                    b.HasIndex("WebId");
 
                     b.ToTable("Ambientes");
                 });
@@ -72,7 +72,17 @@ namespace ControleDeAmbiente.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
                     b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Usuario")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
@@ -82,23 +92,6 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.ToTable("Android");
                 });
 
-            modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Api", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Api");
-                });
-
             modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Ios", b =>
                 {
                     b.Property<int>("Id")
@@ -106,7 +99,17 @@ namespace ControleDeAmbiente.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
                     b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Usuario")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
@@ -123,6 +126,11 @@ namespace ControleDeAmbiente.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
@@ -133,17 +141,38 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.ToTable("Negocio");
                 });
 
+            modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Web", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Usuario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Web");
+                });
+
             modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Ambiente", b =>
                 {
                     b.HasOne("ControleDeAmbiente.BLL.Model.Android", "Android")
                         .WithMany()
                         .HasForeignKey("AndroidId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ControleDeAmbiente.BLL.Model.Api", "Api")
-                        .WithMany()
-                        .HasForeignKey("ApiId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -156,6 +185,12 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.HasOne("ControleDeAmbiente.BLL.Model.Negocio", "Negocio")
                         .WithMany()
                         .HasForeignKey("NegocioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ControleDeAmbiente.BLL.Model.Web", "Web")
+                        .WithMany()
+                        .HasForeignKey("WebId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -2,7 +2,7 @@
 
 namespace ControleDeAmbiente.DAL.Migrations
 {
-    public partial class DataBaseInicial : Migration
+    public partial class BaseDeDados_V2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,24 +12,13 @@ namespace ControleDeAmbiente.DAL.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(maxLength: 50, nullable: false)
+                    Nome = table.Column<string>(maxLength: 50, nullable: false),
+                    Usuario = table.Column<string>(maxLength: 50, nullable: false),
+                    Email = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Android", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Api",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Api", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,7 +27,9 @@ namespace ControleDeAmbiente.DAL.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(maxLength: 50, nullable: false)
+                    Nome = table.Column<string>(maxLength: 50, nullable: false),
+                    Usuario = table.Column<string>(maxLength: 50, nullable: false),
+                    Email = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,11 +42,27 @@ namespace ControleDeAmbiente.DAL.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(maxLength: 50, nullable: false)
+                    Nome = table.Column<string>(maxLength: 50, nullable: false),
+                    Email = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Negocio", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Web",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(maxLength: 50, nullable: false),
+                    Usuario = table.Column<string>(maxLength: 50, nullable: false),
+                    Email = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Web", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,7 +74,7 @@ namespace ControleDeAmbiente.DAL.Migrations
                     Nome = table.Column<string>(maxLength: 50, nullable: false),
                     Chamado = table.Column<string>(maxLength: 50, nullable: false),
                     Descricao = table.Column<string>(maxLength: 50, nullable: false),
-                    ApiId = table.Column<int>(nullable: false),
+                    WebId = table.Column<int>(nullable: false),
                     IosId = table.Column<int>(nullable: false),
                     AndroidId = table.Column<int>(nullable: false),
                     NegocioId = table.Column<int>(nullable: false)
@@ -82,12 +89,6 @@ namespace ControleDeAmbiente.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Ambientes_Api_ApiId",
-                        column: x => x.ApiId,
-                        principalTable: "Api",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Ambientes_Ios_IosId",
                         column: x => x.IosId,
                         principalTable: "Ios",
@@ -99,17 +100,18 @@ namespace ControleDeAmbiente.DAL.Migrations
                         principalTable: "Negocio",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Ambientes_Web_WebId",
+                        column: x => x.WebId,
+                        principalTable: "Web",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ambientes_AndroidId",
                 table: "Ambientes",
                 column: "AndroidId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ambientes_ApiId",
-                table: "Ambientes",
-                column: "ApiId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ambientes_IosId",
@@ -120,6 +122,11 @@ namespace ControleDeAmbiente.DAL.Migrations
                 name: "IX_Ambientes_NegocioId",
                 table: "Ambientes",
                 column: "NegocioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ambientes_WebId",
+                table: "Ambientes",
+                column: "WebId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -131,13 +138,13 @@ namespace ControleDeAmbiente.DAL.Migrations
                 name: "Android");
 
             migrationBuilder.DropTable(
-                name: "Api");
-
-            migrationBuilder.DropTable(
                 name: "Ios");
 
             migrationBuilder.DropTable(
                 name: "Negocio");
+
+            migrationBuilder.DropTable(
+                name: "Web");
         }
     }
 }

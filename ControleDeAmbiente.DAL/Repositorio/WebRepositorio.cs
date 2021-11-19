@@ -6,10 +6,10 @@ using System.Text;
 
 namespace ControleDeAmbiente.DAL.Repositorio
 {
-    public class ApiRepositorio : RepositorioGenerico<Api>, IApiRepositorio
+    public class WebRepositorio : RepositorioGenerico<Web>, IWebRepositorio
     {
         private readonly Contexto _contexto;
-        public ApiRepositorio(Contexto contexto) :base(contexto)
+        public WebRepositorio(Contexto contexto) :base(contexto)
         {
             _contexto = contexto;
         }

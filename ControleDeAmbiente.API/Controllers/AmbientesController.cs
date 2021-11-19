@@ -63,7 +63,7 @@ namespace ControleDeAmbiente.API.Controllers
                     Descricao = ambiente.Descricao,
                     Chamado = ambiente.Chamado,
                     AndroidId = ambiente.AndroidId,
-                    ApiId = ambiente.ApiId,
+                    WebId = ambiente.ApiId,
                     IosId = ambiente.IosId,
                     NegocioId = ambiente.NegocioId
                     
@@ -96,7 +96,7 @@ namespace ControleDeAmbiente.API.Controllers
                     atualizarAmbiente.Chamado = ambiente.Chamado;
                     atualizarAmbiente.AndroidId = ambiente.AndroidId;
                     atualizarAmbiente.IosId = ambiente.IosId;
-                    atualizarAmbiente.ApiId = ambiente.ApiId;
+                    atualizarAmbiente.WebId = ambiente.ApiId;
                     atualizarAmbiente.NegocioId = ambiente.NegocioId;
 
                     await _ambienteRepositorio.Atualizar(atualizarAmbiente);
@@ -135,7 +135,7 @@ namespace ControleDeAmbiente.API.Controllers
                     atualizarAmbiente.Chamado = "";
                     atualizarAmbiente.AndroidId = 1;
                     atualizarAmbiente.IosId = 1;
-                    atualizarAmbiente.ApiId = 1;
+                    atualizarAmbiente.WebId = 1;
                     atualizarAmbiente.NegocioId = 1;
 
                     await _ambienteRepositorio.Atualizar(atualizarAmbiente);

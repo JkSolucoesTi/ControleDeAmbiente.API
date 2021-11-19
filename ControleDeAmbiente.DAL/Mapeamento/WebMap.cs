@@ -7,16 +7,21 @@ using System.Text;
 
 namespace ControleDeAmbiente.DAL.Mapeamento
 {
-    public class ApiMap : IEntityTypeConfiguration<Api>
+    public class WebMap : IEntityTypeConfiguration<Web>
     {
-        public void Configure(EntityTypeBuilder<Api> builder)
+        public void Configure(EntityTypeBuilder<Web> builder)
         {
-            builder.ToTable("Api");
+            builder.ToTable("Web");
             builder.HasKey(a => a.Id);
 
             builder.Property(a => a.Nome).HasMaxLength(50);
             builder.Property(a => a.Nome).IsRequired();
 
+            builder.Property(a => a.Usuario).HasMaxLength(50);
+            builder.Property(a => a.Usuario).IsRequired();
+
+            builder.Property(a => a.Email).HasMaxLength(50);
+            builder.Property(a => a.Email).IsRequired();
 
         }
     }
