@@ -92,6 +92,28 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.ToTable("Android");
                 });
 
+            modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Api", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Api");
+                });
+
             modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Ios", b =>
                 {
                     b.Property<int>("Id")

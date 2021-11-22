@@ -2,7 +2,7 @@
 
 namespace ControleDeAmbiente.DAL.Migrations
 {
-    public partial class BaseDeDados_V2 : Migration
+    public partial class V2_DataBase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,6 +19,20 @@ namespace ControleDeAmbiente.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Android", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Api",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(maxLength: 50, nullable: false),
+                    Descricao = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Api", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -133,6 +147,9 @@ namespace ControleDeAmbiente.DAL.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Ambientes");
+
+            migrationBuilder.DropTable(
+                name: "Api");
 
             migrationBuilder.DropTable(
                 name: "Android");

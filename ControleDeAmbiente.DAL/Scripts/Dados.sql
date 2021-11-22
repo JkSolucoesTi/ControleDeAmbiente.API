@@ -4,6 +4,10 @@ go
 BEGIN TRAN
 BEGIN TRY
 
+insert into Api(Nome,Descricao)
+values('Mobile','Api Mobile')
+
+
 insert into Negocio(Nome,Email)
 values
 ('Sem alocação',''),

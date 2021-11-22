@@ -1,4 +1,5 @@
-﻿using ControleDeAmbiente.BLL.Model;
+﻿using ControleDeAmbiente.API.ViewModel;
+using ControleDeAmbiente.BLL.Model;
 using ControleDeAmbiente.DAL.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -59,8 +60,60 @@ namespace ControleDeAmbiente.API.Controllers
 
         }
 
+        [HttpPost("Android/Adicionar")]
+        public async Task<ActionResult<Android>> AdicionarDesenvolvedorAndroid(Android desenvolvedor)
+        {
+            try
+            {
+                await _androidRepositorio.Inserir(desenvolvedor);
+                return Ok(new
+                {
+                    mensagem = "Desenvolvedor Web Adicionado com sucesso"
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Houve algums problema com sua chamada");
+            }
+
+        }
+
+        [HttpPut("Android/Atualizar/{Id}")]
+        public async Task<ActionResult<Android>> AtualizarDesenvolvedorWeb(Android android, int Id)
+        {
+            try
+            {
+                if (android.Id == Id)
+                {
+                    var desenvolvedor = await _androidRepositorio.PegarPorId(Id);
+                    desenvolvedor.Nome = android.Nome;
+                    desenvolvedor.Usuario = android.Usuario;
+                    desenvolvedor.Email = android.Email;
+
+                    await _androidRepositorio.Atualizar(desenvolvedor);
+
+                    return Ok(new
+                    {
+                        mensagem = "Desenvolvedor Android atualizado com sucesso"
+                    });
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+        }
+
+
+
         [HttpGet("Web")]
-        public async Task<ActionResult<IEnumerable<Web>>> ObterDesenvolvedorApi()
+        public async Task<ActionResult<IEnumerable<Web>>> ObterDesenvolvedorWeb()
         {
             try
             {
@@ -74,7 +127,7 @@ namespace ControleDeAmbiente.API.Controllers
         }
 
         [HttpGet("Web/{Id}")]
-        public async Task<ActionResult<IEnumerable<Web>>> ObterDesenvolvedorWevPorId(int Id)
+        public async Task<ActionResult<IEnumerable<Web>>> ObterDesenvolvedorWebPorId(int Id)
         {
             try
             {
@@ -86,6 +139,56 @@ namespace ControleDeAmbiente.API.Controllers
                 return NotFound(ex);
             }
 
+        }
+
+        [HttpPost("Web/Adicionar")]
+        public async Task<ActionResult<Web>> AdicionarDesenvolvedorWeb(Web desenvolvedor)
+        {
+            try
+            {
+                await _webRepositorio.Inserir(desenvolvedor);
+                return Ok(new
+                {
+                    mensagem = "Desenvolvedor Web Adicionado com sucesso"
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Houve algums problema com sua chamada");
+            }
+
+        }
+
+        [HttpPut("Web/Atualizar/{Id}")]
+        public async Task<ActionResult<Android>> AtualizarDesenvolvedorWeb(Web web, int Id)
+        {
+            try
+            {
+                if (web.Id == Id)
+                {
+                    var desenvolvedor = await _webRepositorio.PegarPorId(Id);
+                    desenvolvedor.Nome = web.Nome;
+                    desenvolvedor.Usuario = web.Usuario;
+                    desenvolvedor.Email = web.Email;
+
+                    await _webRepositorio.Atualizar(desenvolvedor);
+
+                    return Ok(new
+                    {
+                        mensagem = "Desenvolvedor Web atualizado com sucesso"
+                    });
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
         }
 
 
@@ -118,6 +221,55 @@ namespace ControleDeAmbiente.API.Controllers
 
         }
 
+        [HttpPost("Ios/Adicionar")]
+        public async Task<ActionResult<Ios>> AdicionarDesenvolvedorIos(Ios desenvolvedor)
+        {
+            try
+            {
+                await _iosRepositorio.Inserir(desenvolvedor);
+                return Ok(new
+                {
+                    mensagem = "Desenvolvedor Ios Adicionado com sucesso"
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Houve algums problema com sua chamada");
+            }
+
+        }
+
+        [HttpPut("Ios/Atualizar/{Id}")]
+        public async Task<ActionResult<Ios>> AtualizarDesenvolvedorIos(Ios ios, int Id)
+        {
+            try
+            {
+                if (ios.Id == Id)
+                {
+                    var desenvolvedor = await _iosRepositorio.PegarPorId(Id);
+                    desenvolvedor.Nome = ios.Nome;
+                    desenvolvedor.Usuario = ios.Usuario;
+                    desenvolvedor.Email = ios.Email;
+
+                    await _iosRepositorio.Atualizar(desenvolvedor);
+
+                    return Ok(new
+                    {
+                        mensagem = "Desenvolvedor IOS atualizado com sucesso"
+                    });
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+        }
 
     }
 }

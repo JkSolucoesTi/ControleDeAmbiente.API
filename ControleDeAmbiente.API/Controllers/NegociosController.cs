@@ -47,5 +47,56 @@ namespace ControleDeAmbiente.API.Controllers
             }
 
         }
+
+        [HttpPost("Adicionar")]
+        public async Task<ActionResult<IEnumerable<Negocio>>> AdicionarAnalistaDeNegocio(Negocio negocio)
+        {
+            try
+            {
+                await _negocioRepositorio.Inserir(negocio);
+
+                return Ok(new
+                {
+                    mensagem = "Analista de negocio adicionado com sucesso"
+                });
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+
+        }
+
+        [HttpPut("Atualizar/{Id}")]
+        public async Task<ActionResult<Negocio>> AtualizarAnalistaDeNegocio(Negocio negocio , int Id)
+        {
+            try
+            {
+                if(negocio.Id == Id)
+                {
+                    var resultado = await _negocioRepositorio.PegarPorId(Id);
+
+                    resultado.Nome = negocio.Nome;
+                    resultado.Email = negocio.Email;
+
+                    await _negocioRepositorio.Atualizar(resultado);
+
+                    return Ok(new
+                    {
+                        mensagem = "Analista de Negocio atualizado com sucesso"
+                    });
+
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
