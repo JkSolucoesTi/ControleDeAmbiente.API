@@ -11,6 +11,9 @@ namespace ControleDeAmbiente.BLL.Model
         public string Chamado { get; set; }        
         public string Descricao { get; set; }
         
+        public int ApiId { get; set; }
+        public Api Api { get; set; }
+
         public int WebId { get; set; }
         public Web Web { get; set; }
 

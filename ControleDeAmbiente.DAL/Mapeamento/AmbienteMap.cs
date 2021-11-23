@@ -23,7 +23,7 @@ namespace ControleDeAmbiente.DAL.Mapeamento
             builder.Property(a => a.Descricao).HasMaxLength(50);
             builder.Property(a => a.Descricao).IsRequired();
 
-            builder.ToTable("Ambientes");
+            builder.ToTable("Ambientes");           
         }
     }
 }

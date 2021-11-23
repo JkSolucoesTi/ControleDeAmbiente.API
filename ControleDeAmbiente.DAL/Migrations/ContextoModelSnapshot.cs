@@ -28,6 +28,9 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.Property<int>("AndroidId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ApiId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Chamado")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
@@ -55,6 +58,8 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AndroidId");
+
+                    b.HasIndex("ApiId");
 
                     b.HasIndex("IosId");
 
@@ -195,6 +200,12 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.HasOne("ControleDeAmbiente.BLL.Model.Android", "Android")
                         .WithMany()
                         .HasForeignKey("AndroidId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ControleDeAmbiente.BLL.Model.Api", "Api")
+                        .WithMany()
+                        .HasForeignKey("ApiId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

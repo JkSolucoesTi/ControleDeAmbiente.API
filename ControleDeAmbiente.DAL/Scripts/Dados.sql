@@ -39,17 +39,17 @@ values
 ('Will','jm0002','marco.goncalves@bancodaycolva.com.br'),
 ('Andre','jm0002','marco.goncalves@bancodaycolva.com.br')
 
-insert into ambientes(Nome,Chamado,Descricao,WebId,IosId,AndroidId,NegocioId)
-values('DEV 01','','Ambiente Disponível',1,1,1,1),
-	  ('DEV 02','','Ambiente Disponível',1,1,1,1),
-	  ('DEV 03','','Ambiente Disponível',1,1,1,1),
-	  ('DEV 04','','Ambiente Disponível',1,1,1,1),
-	  ('DEV 05','','Ambiente Disponível',1,1,1,1),
-	  ('DEV 06','','Ambiente Disponível',1,1,1,1),
-	  ('DEV 07','','Ambiente Disponível',1,1,1,1),
-	  ('DEV 08','','Ambiente Disponível',1,1,1,1),
-	  ('DEV 09','','Ambiente Disponível',1,1,1,1),
-	  ('DEV 10','','Ambiente Disponível',1,1,1,1)
+insert into ambientes(Nome,Chamado,Descricao,ApiId,WebId,IosId,AndroidId,NegocioId)
+values('DEV 01','','Ambiente Disponível',1,1,1,1,1),
+	  ('DEV 02','','Ambiente Disponível',1,1,1,1,1),
+	  ('DEV 03','','Ambiente Disponível',1,1,1,1,1),
+	  ('DEV 04','','Ambiente Disponível',1,1,1,1,1),
+	  ('DEV 05','','Ambiente Disponível',1,1,1,1,1),
+	  ('DEV 06','','Ambiente Disponível',1,1,1,1,1),
+	  ('DEV 07','','Ambiente Disponível',1,1,1,1,1),
+	  ('DEV 08','','Ambiente Disponível',1,1,1,1,1),
+	  ('DEV 09','','Ambiente Disponível',1,1,1,1,1),
+	  ('DEV 10','','Ambiente Disponível',1,1,1,1,1)
 
 COMMIT TRAN
 END TRY

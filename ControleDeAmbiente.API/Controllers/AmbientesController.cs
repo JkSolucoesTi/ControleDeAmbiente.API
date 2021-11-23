@@ -62,8 +62,9 @@ namespace ControleDeAmbiente.API.Controllers
                     Nome = ambiente.Nome,
                     Descricao = ambiente.Descricao,
                     Chamado = ambiente.Chamado,
+                    ApiId = ambiente.ApiId,
                     AndroidId = ambiente.AndroidId,
-                    WebId = ambiente.ApiId,
+                    WebId = ambiente.WebId,
                     IosId = ambiente.IosId,
                     NegocioId = ambiente.NegocioId
                     
@@ -96,7 +97,7 @@ namespace ControleDeAmbiente.API.Controllers
                     atualizarAmbiente.Chamado = ambiente.Chamado;
                     atualizarAmbiente.AndroidId = ambiente.AndroidId;
                     atualizarAmbiente.IosId = ambiente.IosId;
-                    atualizarAmbiente.WebId = ambiente.ApiId;
+                    atualizarAmbiente.WebId = ambiente.WebId;
                     atualizarAmbiente.NegocioId = ambiente.NegocioId;
 
                     await _ambienteRepositorio.Atualizar(atualizarAmbiente);

@@ -88,6 +88,7 @@ namespace ControleDeAmbiente.DAL.Migrations
                     Nome = table.Column<string>(maxLength: 50, nullable: false),
                     Chamado = table.Column<string>(maxLength: 50, nullable: false),
                     Descricao = table.Column<string>(maxLength: 50, nullable: false),
+                    ApiId = table.Column<int>(nullable: false),
                     WebId = table.Column<int>(nullable: false),
                     IosId = table.Column<int>(nullable: false),
                     AndroidId = table.Column<int>(nullable: false),
@@ -100,6 +101,12 @@ namespace ControleDeAmbiente.DAL.Migrations
                         name: "FK_Ambientes_Android_AndroidId",
                         column: x => x.AndroidId,
                         principalTable: "Android",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Ambientes_Api_ApiId",
+                        column: x => x.ApiId,
+                        principalTable: "Api",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -128,6 +135,11 @@ namespace ControleDeAmbiente.DAL.Migrations
                 column: "AndroidId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Ambientes_ApiId",
+                table: "Ambientes",
+                column: "ApiId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Ambientes_IosId",
                 table: "Ambientes",
                 column: "IosId");
@@ -149,10 +161,10 @@ namespace ControleDeAmbiente.DAL.Migrations
                 name: "Ambientes");
 
             migrationBuilder.DropTable(
-                name: "Api");
+                name: "Android");
 
             migrationBuilder.DropTable(
-                name: "Android");
+                name: "Api");
 
             migrationBuilder.DropTable(
                 name: "Ios");

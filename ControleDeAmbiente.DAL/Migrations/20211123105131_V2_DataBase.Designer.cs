@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleDeAmbiente.DAL.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20211122123136_V2_DataBase")]
+    [Migration("20211123105131_V2_DataBase")]
     partial class V2_DataBase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,9 @@ namespace ControleDeAmbiente.DAL.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AndroidId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ApiId")
                         .HasColumnType("int");
 
                     b.Property<string>("Chamado")
@@ -57,6 +60,8 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AndroidId");
+
+                    b.HasIndex("ApiId");
 
                     b.HasIndex("IosId");
 
@@ -197,6 +202,12 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.HasOne("ControleDeAmbiente.BLL.Model.Android", "Android")
                         .WithMany()
                         .HasForeignKey("AndroidId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ControleDeAmbiente.BLL.Model.Api", "Api")
+                        .WithMany()
+                        .HasForeignKey("ApiId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
