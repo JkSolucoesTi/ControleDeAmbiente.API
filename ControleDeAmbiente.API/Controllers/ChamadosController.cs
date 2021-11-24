@@ -41,8 +41,8 @@ namespace ControleDeAmbiente.API.Controllers
             {
                 var retorno = await _chamadoRepositorio.VerificarAlocacao(chamado.AmbienteId, chamado.ApiId);
 
-                if(retorno == null)
-                {                    
+                if (retorno == null)
+                {
                     await _chamadoRepositorio.Inserir(chamado);
 
                     return Ok(new
@@ -67,31 +67,22 @@ namespace ControleDeAmbiente.API.Controllers
             }
         }
 
-        //[HttpPost("Liberar/{AmbienteID}/{ApiId}")]
-        //public async Task<ActionResult<Chamado>> LiberarAmbiente(int Id,int ApiId)
-        //{
-        //    //try
-        //    //{
-        //    //    if(Id == chamado.Ambiente.Id)
-        //    //    {
-        //    //        await _chamadoRepositorio.Excluir(chamado);
+            [HttpDelete("Liberar/{AmbienteId}/{ApiId}")]
+            public async Task<ActionResult<Chamado>> LiberarAmbiente(int AmbienteId, int ApiId)
+            {
+                try
+                {
+                Chamado chamado = new Chamado();
 
-        //    //        return Ok(new
-        //    //        {
-        //    //            mensagem = $"Ambiente {chamado.Ambiente.Nome} liberado com sucesso"
-        //    //        });
+                    await _chamadoRepositorio.Excluir(chamado);
 
-        //    //    }
-        //    //    else
-        //    //    {
-        //    //        return NotFound();
-        //    //    }
+                    return Ok();
 
-        //    //}
-        //    //catch (Exception)
-        //    //{
-        //    //    return BadRequest();
-        //    //}
-        //}
-    }
+                }
+                catch (Exception)
+                {
+                    return BadRequest();
+                }
+            }
+    }    
 }
