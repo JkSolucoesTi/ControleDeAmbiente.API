@@ -34,5 +34,37 @@ namespace ControleDeAmbiente.API.Controllers
             }
 
         }
+        [HttpPost("Adicionar")]
+        public async Task<ActionResult<Chamado>> AdicionarChamado(Chamado chamado)
+        {
+            try
+            {
+                var retorno = await _chamadoRepositorio.VerificarAlocacao(chamado.AmbienteId, chamado.ApiId);
+
+                if(retorno == null)
+                {                    
+                    await _chamadoRepositorio.Inserir(chamado);
+
+                    return Ok(new
+                    {
+                        codigo = 1,
+                        mensagem = $"Ambiente adicionado com sucesso"
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        codigo = 2,
+                        mensagem = $"Não foi possível alocar no Ambiente {retorno.Ambiente.Nome} a API {retorno.Api.Nome} - Chamado {retorno.Numero}"
+                    });
+                }
+
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
     }
 }

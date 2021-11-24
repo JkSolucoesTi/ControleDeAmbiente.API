@@ -48,7 +48,8 @@ values('DEV 01'),
 	  ('DEV 07'),
 	  ('DEV 08'),
 	  ('DEV 09'),
-	  ('DEV 10')
+	  ('DEV 10'),
+	  ('DEV 11')
 
 COMMIT TRAN
 END TRY

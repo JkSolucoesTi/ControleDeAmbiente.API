@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleDeAmbiente.DAL.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20211124114634_database")]
+    [Migration("20211124133357_database")]
     partial class database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
