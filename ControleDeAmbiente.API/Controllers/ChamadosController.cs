@@ -66,5 +66,32 @@ namespace ControleDeAmbiente.API.Controllers
                 return BadRequest();
             }
         }
+
+        //[HttpPost("Liberar/{AmbienteID}/{ApiId}")]
+        //public async Task<ActionResult<Chamado>> LiberarAmbiente(int Id,int ApiId)
+        //{
+        //    //try
+        //    //{
+        //    //    if(Id == chamado.Ambiente.Id)
+        //    //    {
+        //    //        await _chamadoRepositorio.Excluir(chamado);
+
+        //    //        return Ok(new
+        //    //        {
+        //    //            mensagem = $"Ambiente {chamado.Ambiente.Nome} liberado com sucesso"
+        //    //        });
+
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        return NotFound();
+        //    //    }
+
+        //    //}
+        //    //catch (Exception)
+        //    //{
+        //    //    return BadRequest();
+        //    //}
+        //}
     }
 }

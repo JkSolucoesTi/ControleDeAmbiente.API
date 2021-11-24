@@ -71,5 +71,19 @@ namespace ControleDeAmbiente.DAL.Repositorio
                 throw ex;
             }
         }
+
+        public async Task Excluir(TEntity entity)
+        {
+            try
+            {
+                var registro = _contexto.Set<TEntity>().Remove(entity);
+                registro.State = EntityState.Deleted;
+                await _contexto.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

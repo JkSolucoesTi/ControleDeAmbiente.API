@@ -12,5 +12,6 @@ namespace ControleDeAmbiente.DAL.Interfaces
         Task <TEntity> PegarPorId(int id);
         Task Atualizar(TEntity entity);
         Task Inserir(TEntity entity);
+        Task Excluir(TEntity entity);
     }
 }
