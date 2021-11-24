@@ -1,5 +1,4 @@
-﻿using ControleDeAmbiente.API.ViewModel;
-using ControleDeAmbiente.BLL.Model;
+﻿using ControleDeAmbiente.BLL.Model;
 using ControleDeAmbiente.DAL.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,22 +12,20 @@ namespace ControleDeAmbiente.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
-    public class AmbientesController : ControllerBase
+    public class ChamadosController : ControllerBase
     {
-        private readonly IAmbienteRepositorio _ambienteRepositorio;
-
-        public AmbientesController(IAmbienteRepositorio ambienteRepositorio)
+        private readonly IChamadoRepositorio _chamadoRepositorio;
+        public ChamadosController(IChamadoRepositorio chamadoRepositorio)
         {
-            _ambienteRepositorio = ambienteRepositorio;
+            _chamadoRepositorio = chamadoRepositorio;
         }
 
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<Ambiente>>> ObterAmbientes()
+        public async Task<ActionResult<IEnumerable<Chamado>>> ObterChamados()
         {
             try
             {
-                var ambientes = await _ambienteRepositorio.PegarTodos().ToListAsync();
+                var ambientes = await _chamadoRepositorio.PegarTodos().ToListAsync();
                 return Ok(ambientes);
             }
             catch (Exception ex)

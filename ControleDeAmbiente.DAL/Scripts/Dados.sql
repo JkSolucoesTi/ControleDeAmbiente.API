@@ -7,7 +7,6 @@ BEGIN TRY
 insert into Api(Nome,Descricao)
 values('Mobile','Api Mobile')
 
-
 insert into Negocio(Nome,Email)
 values
 ('Sem alocação',''),
@@ -39,17 +38,17 @@ values
 ('Will','jm0002','marco.goncalves@bancodaycolva.com.br'),
 ('Andre','jm0002','marco.goncalves@bancodaycolva.com.br')
 
-insert into ambientes(Nome,Chamado,Descricao,ApiId,WebId,IosId,AndroidId,NegocioId)
-values('DEV 01','','Ambiente Disponível',1,1,1,1,1),
-	  ('DEV 02','','Ambiente Disponível',1,1,1,1,1),
-	  ('DEV 03','','Ambiente Disponível',1,1,1,1,1),
-	  ('DEV 04','','Ambiente Disponível',1,1,1,1,1),
-	  ('DEV 05','','Ambiente Disponível',1,1,1,1,1),
-	  ('DEV 06','','Ambiente Disponível',1,1,1,1,1),
-	  ('DEV 07','','Ambiente Disponível',1,1,1,1,1),
-	  ('DEV 08','','Ambiente Disponível',1,1,1,1,1),
-	  ('DEV 09','','Ambiente Disponível',1,1,1,1,1),
-	  ('DEV 10','','Ambiente Disponível',1,1,1,1,1)
+insert into ambientes(Nome)
+values('DEV 01'),
+	  ('DEV 02'),
+	  ('DEV 03'),
+	  ('DEV 04'),
+	  ('DEV 05'),
+	  ('DEV 06'),
+	  ('DEV 07'),
+	  ('DEV 08'),
+	  ('DEV 09'),
+	  ('DEV 10')
 
 COMMIT TRAN
 END TRY

@@ -16,45 +16,6 @@ namespace ControleDeAmbiente.DAL.Repositorio
         {
             _contexto = contexto;
         }
-
-        public new async Task<Ambiente> PegarPorId(int id)
-        {
-            try
-            {
-                return await _contexto.Ambientes.Include(a => a.Android)
-                    .Include(i => i.Ios).Include(a => a.Web)
-                    .Include(n => n.Negocio).Include(a => a.Api)
-                    .FirstOrDefaultAsync(ab => ab.Id == id);                
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
-        public new IQueryable<Ambiente> PegarTodos()
-        {
-            try
-            {
-                var ambiente = _contexto.Ambientes
-                   .Include(a => a.Android)
-                   .Include(i => i.Ios)
-                   .Include(a => a.Web)
-                   .Include(n => n.Negocio)
-                   .Include(a => a.Api)
-                   ;
-
-
-                return ambiente;
-                    
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
         
     }
 }

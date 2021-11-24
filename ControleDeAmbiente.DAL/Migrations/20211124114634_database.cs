@@ -2,10 +2,23 @@
 
 namespace ControleDeAmbiente.DAL.Migrations
 {
-    public partial class V2_DataBase : Migration
+    public partial class database : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Ambientes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ambientes", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Android",
                 columns: table => new
@@ -80,14 +93,13 @@ namespace ControleDeAmbiente.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ambientes",
+                name: "Chamado",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(maxLength: 50, nullable: false),
-                    Chamado = table.Column<string>(maxLength: 50, nullable: false),
-                    Descricao = table.Column<string>(maxLength: 50, nullable: false),
+                    Numero = table.Column<string>(maxLength: 50, nullable: false),
+                    AmbienteId = table.Column<int>(nullable: false),
                     ApiId = table.Column<int>(nullable: false),
                     WebId = table.Column<int>(nullable: false),
                     IosId = table.Column<int>(nullable: false),
@@ -96,33 +108,39 @@ namespace ControleDeAmbiente.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ambientes", x => x.Id);
+                    table.PrimaryKey("PK_Chamado", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ambientes_Android_AndroidId",
+                        name: "FK_Chamado_Ambientes_AmbienteId",
+                        column: x => x.AmbienteId,
+                        principalTable: "Ambientes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Chamado_Android_AndroidId",
                         column: x => x.AndroidId,
                         principalTable: "Android",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Ambientes_Api_ApiId",
+                        name: "FK_Chamado_Api_ApiId",
                         column: x => x.ApiId,
                         principalTable: "Api",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Ambientes_Ios_IosId",
+                        name: "FK_Chamado_Ios_IosId",
                         column: x => x.IosId,
                         principalTable: "Ios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Ambientes_Negocio_NegocioId",
+                        name: "FK_Chamado_Negocio_NegocioId",
                         column: x => x.NegocioId,
                         principalTable: "Negocio",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Ambientes_Web_WebId",
+                        name: "FK_Chamado_Web_WebId",
                         column: x => x.WebId,
                         principalTable: "Web",
                         principalColumn: "Id",
@@ -130,33 +148,41 @@ namespace ControleDeAmbiente.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ambientes_AndroidId",
-                table: "Ambientes",
+                name: "IX_Chamado_AmbienteId",
+                table: "Chamado",
+                column: "AmbienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Chamado_AndroidId",
+                table: "Chamado",
                 column: "AndroidId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ambientes_ApiId",
-                table: "Ambientes",
+                name: "IX_Chamado_ApiId",
+                table: "Chamado",
                 column: "ApiId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ambientes_IosId",
-                table: "Ambientes",
+                name: "IX_Chamado_IosId",
+                table: "Chamado",
                 column: "IosId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ambientes_NegocioId",
-                table: "Ambientes",
+                name: "IX_Chamado_NegocioId",
+                table: "Chamado",
                 column: "NegocioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ambientes_WebId",
-                table: "Ambientes",
+                name: "IX_Chamado_WebId",
+                table: "Chamado",
                 column: "WebId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Chamado");
+
             migrationBuilder.DropTable(
                 name: "Ambientes");
 

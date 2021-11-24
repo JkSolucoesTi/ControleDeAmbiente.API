@@ -9,13 +9,14 @@ namespace ControleDeAmbiente.DAL
 {
     public class Contexto : DbContext
     {
+        public DbSet<Chamado> Chamados { get; set; }
         public DbSet<Ambiente> Ambientes { get; set; }
         public DbSet<Android> Android { get; set; }
         public DbSet<Ios> Ios { get; set; }
         public DbSet<Web> Web { get; set; }
         public DbSet<Negocio> Negocio { get; set; }
-
         public DbSet<Api> Api { get; set; }
+
 
         public Contexto(DbContextOptions<Contexto> opcoes) : base(opcoes)
         {
@@ -31,6 +32,7 @@ namespace ControleDeAmbiente.DAL
             builder.ApplyConfiguration(new WebMap());
             builder.ApplyConfiguration(new NegocioMap());
             builder.ApplyConfiguration(new ApiMap());
+            builder.ApplyConfiguration(new ChamadoMap());
         }
     }
 }
