@@ -9,5 +9,6 @@ namespace ControleDeAmbiente.DAL.Interfaces
         new IQueryable<Chamado> PegarTodos();
         new Task<Chamado> PegarPorId(int id);
         Task<Chamado> VerificarAlocacao(int ambienteId, int apiId);
+
     }
 }

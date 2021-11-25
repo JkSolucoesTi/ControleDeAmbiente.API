@@ -1,11 +1,9 @@
 ﻿using ControleDeAmbiente.BLL.Model;
 using ControleDeAmbiente.DAL.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ControleDeAmbiente.API.Controllers
@@ -72,11 +70,15 @@ namespace ControleDeAmbiente.API.Controllers
             {
                 try
                 {
-                Chamado chamado = new Chamado();
 
-                    await _chamadoRepositorio.Excluir(chamado);
+                    var liberar = await _chamadoRepositorio.VerificarAlocacao(AmbienteId, ApiId);
 
-                    return Ok();
+                    await _chamadoRepositorio.Excluir(liberar);
+
+                    return Ok( new
+                    {
+                        mensagem = "Ambiente liberado com sucesso"
+                    });
 
                 }
                 catch (Exception)

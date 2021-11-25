@@ -49,9 +49,6 @@ namespace ControleDeAmbiente.DAL.Repositorio
                     .FirstOrDefault();
 
                 return Task.FromResult(resultado);
-
-             
-
             }
             catch (Exception)
             {
