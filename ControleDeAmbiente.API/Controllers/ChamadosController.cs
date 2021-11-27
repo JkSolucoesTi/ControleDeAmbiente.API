@@ -65,26 +65,88 @@ namespace ControleDeAmbiente.API.Controllers
             }
         }
 
-            [HttpDelete("Liberar/{AmbienteId}/{ApiId}")]
-            public async Task<ActionResult<Chamado>> LiberarAmbiente(int AmbienteId, int ApiId)
+        [HttpDelete("Liberar/{AmbienteId}/{ApiId}")]
+        public async Task<ActionResult<Chamado>> LiberarAmbiente(int AmbienteId, int ApiId)
+        {
+            try
             {
-                try
+
+                var liberar = await _chamadoRepositorio.VerificarAlocacao(AmbienteId, ApiId);
+
+                await _chamadoRepositorio.Excluir(liberar);
+
+                return Ok(new
                 {
+                    mensagem = "Ambiente liberado com sucesso"
+                });
 
-                    var liberar = await _chamadoRepositorio.VerificarAlocacao(AmbienteId, ApiId);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
 
-                    await _chamadoRepositorio.Excluir(liberar);
+        [HttpGet("Alterar/{AmbienteId}/{ApiId}")]
+        public async Task<ActionResult<Chamado>> ObterChamadoAmbienteApi(int AmbienteId, int ApiId)
+        {
+            try
+            {
+                var alterar = await _chamadoRepositorio.VerificarAlocacao(AmbienteId, ApiId);
+                return Ok(alterar);
+            }
+            catch (Exception)
+            {
+                return BadRequest();                
+            }
+        }
 
-                    return Ok( new
+        [HttpPut("Alterar/{Id}")]
+        public async Task<ActionResult<Chamado>> AtualizarChamado(Chamado chamado, int Id)
+        {
+            try
+            {
+                var retorno = await _chamadoRepositorio.VerificarAlocacao(chamado.AmbienteId, chamado.ApiId);
+                if (retorno == null)
+                {
+                    var atualizar = await _chamadoRepositorio.PegarPorId(chamado.Id);
+                    if (chamado.Id == Id)
                     {
-                        mensagem = "Ambiente liberado com sucesso"
-                    });
 
+                        atualizar.Id = chamado.Id;
+                        atualizar.Numero = chamado.Numero;
+                        atualizar.AmbienteId = chamado.AmbienteId;
+                        atualizar.WebId = chamado.WebId;
+                        atualizar.IosId = chamado.IosId;
+                        atualizar.ApiId = chamado.ApiId;
+                        atualizar.NegocioId = chamado.NegocioId;
+
+                        await _chamadoRepositorio.Atualizar(atualizar);
+
+                        return Ok(new
+                        {
+                            mensagem = "Chamado atualizado com sucesso"
+                        });
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
                 }
-                catch (Exception)
+                else
                 {
-                    return BadRequest();
+                    return Ok(new
+                    {
+                        codigo = 2,
+                        mensagem = $"Não foi possível alocar no Ambiente {retorno.Ambiente.Nome} a API {retorno.Api.Nome} - Chamado {retorno.Numero}"
+                    });
                 }
             }
-    }    
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+        }
+    }
 }
