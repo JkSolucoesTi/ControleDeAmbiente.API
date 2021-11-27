@@ -1,8 +1,4 @@
-﻿
-using System;
-using ControleDeAmbiente.BLL.Model;
-using System.Collections.Generic;
-using System.Text;
+﻿using ControleDeAmbiente.BLL.Model;
 using System.Linq;
 using System.Threading.Tasks;
 

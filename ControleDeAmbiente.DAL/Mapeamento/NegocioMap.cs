@@ -16,6 +16,9 @@ namespace ControleDeAmbiente.DAL.Mapeamento
 
             builder.Property(a => a.Nome).HasMaxLength(50);
             builder.Property(a => a.Nome).IsRequired();
+
+            builder.Property(a => a.Email).HasMaxLength(50);
+            builder.Property(a => a.Email).IsRequired();
         }
     }
 }

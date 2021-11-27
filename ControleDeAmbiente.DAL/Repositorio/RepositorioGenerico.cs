@@ -1,9 +1,7 @@
 ﻿using ControleDeAmbiente.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ControleDeAmbiente.DAL.Repositorio
@@ -70,6 +68,20 @@ namespace ControleDeAmbiente.DAL.Repositorio
             catch (Exception ex)
             {
 
+                throw ex;
+            }
+        }
+
+        public async Task Excluir(TEntity entity)
+        {
+            try
+            {
+                var registro = _contexto.Set<TEntity>().Remove(entity);
+                registro.State = EntityState.Deleted;
+                await _contexto.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }

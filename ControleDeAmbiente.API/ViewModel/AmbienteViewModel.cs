@@ -12,6 +12,7 @@ namespace ControleDeAmbiente.API.ViewModel
         public string Chamado { get; set; }
         public string Descricao { get; set; }
         public int ApiId { get; set; }
+        public int WebId { get; set; }
         public int IosId { get; set; }
         public int AndroidId { get; set; }
         public int NegocioId { get; set; }
