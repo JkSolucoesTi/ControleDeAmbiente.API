@@ -68,6 +68,7 @@ namespace ControleDeAmbiente.API.Controllers
                 await _androidRepositorio.Inserir(desenvolvedor);
                 return Ok(new
                 {
+                    codigo = 1,
                     mensagem = "Desenvolvedor Web Adicionado com sucesso"
                 });
 
@@ -110,6 +111,27 @@ namespace ControleDeAmbiente.API.Controllers
             }
         }
 
+
+        [HttpDelete("Android/{Id}")]
+        public async Task<ActionResult<Android>> ExcluirDesenvolvedorAndroid(int Id)
+        {
+            try
+            {
+                var android = await _androidRepositorio.PegarPorId(Id);
+                 await _androidRepositorio.Excluir(android);
+
+                return Ok(new
+                {
+                    mensagem = "Android excluído com sucesso"
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+
+        }
 
 
         [HttpGet("Web")]
@@ -191,6 +213,26 @@ namespace ControleDeAmbiente.API.Controllers
             }
         }
 
+        [HttpDelete("web/{Id}")]
+        public async Task<ActionResult<Android>> ExcluirDesenvolvedorWeb(int Id)
+        {
+            try
+            {
+                var web = await _webRepositorio.PegarPorId(Id);
+                await _webRepositorio.Excluir(web);
+
+                return Ok(new
+                {
+                    mensagem = "Web excluído com sucesso"
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+        }
+
 
         [HttpGet("Ios")]
         public async Task<ActionResult<IEnumerable<Ios>>> ObterDesenvolvedorIos()
@@ -229,6 +271,7 @@ namespace ControleDeAmbiente.API.Controllers
                 await _iosRepositorio.Inserir(desenvolvedor);
                 return Ok(new
                 {
+                    codigo = 1,
                     mensagem = "Desenvolvedor Ios Adicionado com sucesso"
                 });
 
@@ -268,6 +311,27 @@ namespace ControleDeAmbiente.API.Controllers
             {
 
                 return BadRequest();
+            }
+        }
+
+        [HttpDelete("ios/{Id}")]
+        public async Task<ActionResult<Android>> ExcluirDesenvolvedorIos(int Id)
+        {
+            try
+            {
+                var ios = await _iosRepositorio.PegarPorId(Id);
+                await _iosRepositorio.Excluir(ios);
+
+                return Ok(new
+                {
+                    codigo = 1,
+                    mensagem = "IOS excluído com sucesso"
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
             }
         }
 

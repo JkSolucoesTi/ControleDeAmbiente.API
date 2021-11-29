@@ -68,11 +68,11 @@ namespace ControleDeAmbiente.API.Controllers
         }
 
         [HttpPut("Atualizar/{Id}")]
-        public async Task<ActionResult<Negocio>> AtualizarAnalistaDeNegocio(Negocio negocio , int Id)
+        public async Task<ActionResult<Negocio>> AtualizarAnalistaDeNegocio(Negocio negocio, int Id)
         {
             try
             {
-                if(negocio.Id == Id)
+                if (negocio.Id == Id)
                 {
                     var resultado = await _negocioRepositorio.PegarPorId(Id);
 
@@ -96,6 +96,36 @@ namespace ControleDeAmbiente.API.Controllers
             {
 
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult<Negocio>> ExcluirAnalistaDeNegocio(int Id)
+        {
+            try
+            {
+                var analista = await _negocioRepositorio.PegarPorId(Id);
+                if (analista != null)
+                {
+                    await _negocioRepositorio.Excluir(analista);
+                    return Ok(new
+                    {
+                        mensagem = "Analista de Negocio excluído"
+                    });
+                }
+                else
+                {
+                    return NotFound(new
+                    {
+                        mensagem = "Analista de negocio não encontrado"
+                    });
+                }
+
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
             }
         }
     }

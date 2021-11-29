@@ -98,5 +98,35 @@ namespace ControleDeAmbiente.API.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult<Api>> AdicionarApi(int Id)
+        {
+            try
+            {
+                var api = await _apiRepositorio.PegarPorId(Id);
+
+                if(api != null)
+                {
+                    await _apiRepositorio.Excluir(api);
+                    return Ok(new
+                    {
+                        mensagem = "A API foi excluída com sucesso"
+                    });
+                }
+                else
+                {
+                    return NotFound(new
+                    {
+                        mensagem = "A API não foi encontrada"
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }
