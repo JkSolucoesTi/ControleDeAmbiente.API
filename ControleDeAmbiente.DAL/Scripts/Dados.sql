@@ -5,7 +5,9 @@ BEGIN TRAN
 BEGIN TRY
 
 insert into Api(Nome,Descricao)
-values('Mobile','Api Mobile')
+values('Mobile','Api Mobile'),
+('Investimento','Api Investimento'),
+('PIX','Api Pix')
 
 insert into Negocio(Nome,Email)
 values
@@ -56,3 +58,12 @@ END TRY
 BEGIN CATCH
 	ROLLBACK TRANSACTION
 END CATCH
+
+
+
+delete from android
+delete from ios
+delete from web
+delete from ambientes
+delete from negocio
+delete from chamado
