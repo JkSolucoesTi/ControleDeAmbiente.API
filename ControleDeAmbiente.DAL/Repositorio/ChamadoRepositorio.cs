@@ -15,6 +15,29 @@ namespace ControleDeAmbiente.DAL.Repositorio
             _contexto = contexto;
         }
 
+        public async Task<Chamado> Detalhes(string numeroChamado, string nomeAmbiente)
+        {
+            try
+            {
+                return await _contexto
+                    .Chamados
+                    .Include(a => a.Ambiente)
+                    .Include(a => a.Api)
+                    .Include(a => a.Web)
+                    .Include(a => a.Ios)
+                    .Include(a => a.Android)
+                    .Include(a => a.Negocio)
+                    .Where(i => i.Numero == numeroChamado)
+                    .Where(i => i.Ambiente.Nome == nomeAmbiente)
+                    .FirstOrDefaultAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public new IQueryable<Chamado> PegarTodos()
         {
             try

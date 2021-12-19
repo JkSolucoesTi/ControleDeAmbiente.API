@@ -87,6 +87,12 @@ namespace ControleDeAmbiente.API.Controllers
             }
         }
 
+        [HttpGet("Detalhes/{NumeroChamado}/{NomeAmbiente}")]
+        public async Task<ActionResult<Chamado>> Detalhes(string NumeroChamado, string NomeAmbiente)
+        {
+            return await _chamadoRepositorio.Detalhes(NumeroChamado, NomeAmbiente);
+        }
+
         [HttpGet("Alterar/{AmbienteId}/{ApiId}")]
         public async Task<ActionResult<Chamado>> ObterChamadoAmbienteApi(int AmbienteId, int ApiId)
         {
@@ -101,12 +107,23 @@ namespace ControleDeAmbiente.API.Controllers
             }
         }
 
-        [HttpPut("Alterar/{Id}")]
-        public async Task<ActionResult<Chamado>> AtualizarChamado(Chamado chamado, int Id)
+        [HttpPut("Alterar/{ambienteIdOld}/{apiIdOld}/{Id}")]
+        public async Task<ActionResult<Chamado>> AtualizarChamado(Chamado chamado ,int ambienteIdOld, int apiIdOld ,int Id)
         {
             try
             {
+                if(chamado.AmbienteId == ambienteIdOld && chamado.ApiId == apiIdOld)
+                {
+                    await _chamadoRepositorio.Atualizar(chamado);
+
+                    return Ok(new
+                    {
+                        mensagem = "Chamado atualizado com sucesso"
+                    });
+                }
+
                 var retorno = await _chamadoRepositorio.VerificarAlocacao(chamado.AmbienteId, chamado.ApiId);
+
                 if (retorno == null)
                 {
                     var atualizar = await _chamadoRepositorio.PegarPorId(chamado.Id);
