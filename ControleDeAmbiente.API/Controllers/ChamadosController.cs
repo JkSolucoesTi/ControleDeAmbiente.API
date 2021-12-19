@@ -87,6 +87,12 @@ namespace ControleDeAmbiente.API.Controllers
             }
         }
 
+        [HttpGet("Detalhes/{NumeroChamado}/{NomeAmbiente}")]
+        public async Task<ActionResult<Chamado>> Detalhes(string NumeroChamado, string NomeAmbiente)
+        {
+            return await _chamadoRepositorio.Detalhes(NumeroChamado, NomeAmbiente);
+        }
+
         [HttpGet("Alterar/{AmbienteId}/{ApiId}")]
         public async Task<ActionResult<Chamado>> ObterChamadoAmbienteApi(int AmbienteId, int ApiId)
         {

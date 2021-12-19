@@ -18,6 +18,10 @@ namespace ControleDeAmbiente.DAL.Mapeamento
             builder.Property(a => a.Numero).HasMaxLength(50);
             builder.Property(a => a.Numero).IsRequired();
 
+            builder.Property(a => a.ChamadoWeb).HasMaxLength(50);
+            builder.Property(a => a.ChamadoIos).HasMaxLength(50);
+            builder.Property(a => a.ChamadoAndroid).HasMaxLength(50);
+
         }
     }
 }
