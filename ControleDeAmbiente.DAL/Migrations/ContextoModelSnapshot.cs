@@ -20,7 +20,7 @@ namespace ControleDeAmbiente.DAL.Migrations
 
             modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Ambiente", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AmbienteId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -30,9 +30,24 @@ namespace ControleDeAmbiente.DAL.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.HasKey("Id");
+                    b.HasKey("AmbienteId");
 
                     b.ToTable("Ambientes");
+                });
+
+            modelBuilder.Entity("ControleDeAmbiente.BLL.Model.AmbienteChamado", b =>
+                {
+                    b.Property<int>("AmbienteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ChamadoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AmbienteId", "ChamadoId");
+
+                    b.HasIndex("ChamadoId");
+
+                    b.ToTable("AmbienteChamado");
                 });
 
             modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Android", b =>
@@ -86,13 +101,10 @@ namespace ControleDeAmbiente.DAL.Migrations
 
             modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Chamado", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ChamadoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AmbienteId")
-                        .HasColumnType("int");
 
                     b.Property<int>("AndroidId")
                         .HasColumnType("int");
@@ -126,9 +138,7 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.Property<int>("WebId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("AmbienteId");
+                    b.HasKey("ChamadoId");
 
                     b.HasIndex("AndroidId");
 
@@ -219,14 +229,23 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.ToTable("Web");
                 });
 
-            modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Chamado", b =>
+            modelBuilder.Entity("ControleDeAmbiente.BLL.Model.AmbienteChamado", b =>
                 {
                     b.HasOne("ControleDeAmbiente.BLL.Model.Ambiente", "Ambiente")
-                        .WithMany()
+                        .WithMany("AmbienteChamado")
                         .HasForeignKey("AmbienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ControleDeAmbiente.BLL.Model.Chamado", "Chamado")
+                        .WithMany("AmbienteChamado")
+                        .HasForeignKey("ChamadoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Chamado", b =>
+                {
                     b.HasOne("ControleDeAmbiente.BLL.Model.Android", "Android")
                         .WithMany()
                         .HasForeignKey("AndroidId")

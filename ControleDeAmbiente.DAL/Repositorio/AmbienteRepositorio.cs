@@ -16,6 +16,23 @@ namespace ControleDeAmbiente.DAL.Repositorio
         {
             _contexto = contexto;
         }
-        
+
+        public async Task<IQueryable<IEnumerable<Ambiente>>> PegarTodosTeste()
+        {
+            try
+            {
+                var chamados =  await _contexto.Ambientes
+                   .Include(a => a.AmbienteChamado)
+                   .ThenInclude(a => a.Chamado.AmbienteChamado).ToListAsync();
+
+                return (IQueryable<IEnumerable<Ambiente>>)chamados;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

@@ -37,7 +37,11 @@ namespace ControleDeAmbiente.API.Controllers
         {
             try
             {
-                var retorno = await _chamadoRepositorio.VerificarAlocacao(chamado.AmbienteId, chamado.ApiId);
+                var retorno = await _chamadoRepositorio.VerificarAlocacao(1, chamado.ApiId);
+
+                AmbienteChamado t = new AmbienteChamado();
+                t.AmbienteId = 1;
+                t.ChamadoId = 2;
 
                 if (retorno == null)
                 {
@@ -54,7 +58,7 @@ namespace ControleDeAmbiente.API.Controllers
                     return Ok(new
                     {
                         codigo = 2,
-                        mensagem = $"Não foi possível alocar no Ambiente {retorno.Ambiente.Nome} a API {retorno.Api.Nome} - Chamado {retorno.Numero}"
+                        mensagem = $"Não foi possível alocar no Ambiente {1} a API {retorno.Api.Nome} - Chamado {retorno.Numero}"
                     });
                 }
 
@@ -112,7 +116,7 @@ namespace ControleDeAmbiente.API.Controllers
         {
             try
             {
-                if(chamado.AmbienteId == ambienteIdOld && chamado.ApiId == apiIdOld)
+                if(1 == ambienteIdOld && chamado.ApiId == apiIdOld)
                 {
                     await _chamadoRepositorio.Atualizar(chamado);
 
@@ -122,17 +126,17 @@ namespace ControleDeAmbiente.API.Controllers
                     });
                 }
 
-                var retorno = await _chamadoRepositorio.VerificarAlocacao(chamado.AmbienteId, chamado.ApiId);
+                var retorno = await _chamadoRepositorio.VerificarAlocacao(1, chamado.ApiId);
 
                 if (retorno == null)
                 {
-                    var atualizar = await _chamadoRepositorio.PegarPorId(chamado.Id);
-                    if (chamado.Id == Id)
+                    var atualizar = await _chamadoRepositorio.PegarPorId(chamado.ChamadoId);
+                    if (chamado.ChamadoId == Id)
                     {
 
-                        atualizar.Id = chamado.Id;
+                        atualizar.ChamadoId = chamado.ChamadoId;
                         atualizar.Numero = chamado.Numero;
-                        atualizar.AmbienteId = chamado.AmbienteId;
+                       // atualizar.AmbienteId = chamado.AmbienteId;
                         atualizar.WebId = chamado.WebId;
                         atualizar.IosId = chamado.IosId;
                         atualizar.ApiId = chamado.ApiId;
@@ -155,7 +159,7 @@ namespace ControleDeAmbiente.API.Controllers
                     return Ok(new
                     {
                         codigo = 2,
-                        mensagem = $"Não foi possível alocar no Ambiente {retorno.Ambiente.Nome} a API {retorno.Api.Nome} - Chamado {retorno.Numero}"
+                        mensagem = $"Não foi possível alocar no Ambiente {1} a API {retorno.Api.Nome} - Chamado {retorno.Numero}"
                     });
                 }
             }

@@ -12,7 +12,6 @@ namespace ControleDeAmbiente.DAL.Mapeamento
         public void Configure(EntityTypeBuilder<Ambiente> builder)
         {
             builder.ToTable("Ambientes");
-            builder.HasKey(a => a.Id);
 
             builder.Property(a => a.Nome).HasMaxLength(50);
             builder.Property(a => a.Nome).IsRequired();

@@ -21,14 +21,14 @@ namespace ControleDeAmbiente.DAL.Repositorio
             {
                 return await _contexto
                     .Chamados
-                    .Include(a => a.Ambiente)
+                    .Include(a => a.AmbienteChamado)
                     .Include(a => a.Api)
                     .Include(a => a.Web)
                     .Include(a => a.Ios)
                     .Include(a => a.Android)
                     .Include(a => a.Negocio)
                     .Where(i => i.Numero == numeroChamado)
-                    .Where(i => i.Ambiente.Nome == nomeAmbiente)
+ //                   .Where(i => i.AmbienteChamado.Nome == nomeAmbiente)
                     .FirstOrDefaultAsync();
             }
             catch (Exception)
@@ -43,7 +43,7 @@ namespace ControleDeAmbiente.DAL.Repositorio
             try
             {
                 var chamados = _contexto.Chamados
-                   .Include(a => a.Ambiente)
+                   .Include(a => a.AmbienteChamado)
                    .Include(a => a.Android)
                    .Include(i => i.Ios)
                    .Include(a => a.Web)
@@ -65,9 +65,9 @@ namespace ControleDeAmbiente.DAL.Repositorio
             {
                 var resultado =  _contexto
                     .Chamados
-                    .Include(a => a.Ambiente)
+                    .Include(a => a.AmbienteChamado)
                     .Include(a => a.Api)
-                    .Where(i => i.AmbienteId == ambienteId)
+                    .Where(i => i.AmbienteChamado.FirstOrDefault().AmbienteId == ambienteId)
                     .Where(i => i.ApiId == apiId)
                     .FirstOrDefault();
 

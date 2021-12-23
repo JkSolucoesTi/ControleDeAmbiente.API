@@ -17,6 +17,8 @@ namespace ControleDeAmbiente.DAL
         public DbSet<Negocio> Negocio { get; set; }
         public DbSet<Api> Api { get; set; }
 
+        public DbSet<AmbienteChamado> AmbienteChamado { get; set; }
+
 
         public Contexto(DbContextOptions<Contexto> opcoes) : base(opcoes)
         {
@@ -33,6 +35,7 @@ namespace ControleDeAmbiente.DAL
             builder.ApplyConfiguration(new NegocioMap());
             builder.ApplyConfiguration(new ApiMap());
             builder.ApplyConfiguration(new ChamadoMap());
+            builder.ApplyConfiguration(new AmbienteChamadoMap());
         }
     }
 }

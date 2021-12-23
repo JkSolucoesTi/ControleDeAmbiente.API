@@ -4,10 +4,12 @@ using System.Text;
 
 namespace ControleDeAmbiente.BLL.Model
 {
-    public class Ambiente
+    public class AmbienteChamado
     {
+        public int ChamadoId { get; set; }
         public int AmbienteId { get; set; }
-        public string Nome { get; set; }
-        public IEnumerable<AmbienteChamado> AmbienteChamado { get; set; }
+
+        public Chamado Chamado { get; set; }
+        public Ambiente Ambiente { get; set; }
     }
 }
