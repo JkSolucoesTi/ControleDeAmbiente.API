@@ -1,4 +1,6 @@
-﻿using ControleDeAmbiente.BLL.Model;
+﻿using System.Linq;
+using ControleDeAmbiente.API.ViewModel;
+using ControleDeAmbiente.BLL.Model;
 using ControleDeAmbiente.DAL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,18 +15,32 @@ namespace ControleDeAmbiente.API.Controllers
     public class ChamadosController : ControllerBase
     {
         private readonly IChamadoRepositorio _chamadoRepositorio;
-        public ChamadosController(IChamadoRepositorio chamadoRepositorio)
+        private readonly IAmbienteRepositorio _ambienteRepositorio;
+        public ChamadosController(IChamadoRepositorio chamadoRepositorio, IAmbienteRepositorio ambienteRepositorio)
         {
             _chamadoRepositorio = chamadoRepositorio;
+            _ambienteRepositorio = ambienteRepositorio;
         }
 
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<Chamado>>> ObterChamados()
+        public async Task<ActionResult<IEnumerable<ChamadosApiViewModel>>> ObterChamados()
         {
             try
             {
-                var ambientes = await _chamadoRepositorio.PegarTodos().ToListAsync();
-                return Ok(ambientes);
+                var lista = new ChamadoApi();
+                var ambientes = await _ambienteRepositorio.PegarTodos().ToListAsync();
+                var chamados = await _chamadoRepositorio.PegarTodos().ToListAsync();
+
+                for (int i=0; i < ambientes.Count - 1; i++) 
+                {
+                    var chamadosApiViewModel = new ChamadosApiViewModel();
+                    chamadosApiViewModel.Ambientes.Id = ambientes[i].Id;
+                    chamadosApiViewModel.Ambientes.Nome = ambientes[i].Nome;
+                    chamadosApiViewModel.Chamados = chamados.Where(x => x.Ambiente.Id == ambientes[i].Id).ToList();
+                    lista.ListaDeChamadosPorAmbiente.Add(chamadosApiViewModel);
+                }
+
+                return Ok(lista);
             }
             catch (Exception ex)
             {

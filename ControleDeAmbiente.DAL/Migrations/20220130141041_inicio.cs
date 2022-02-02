@@ -2,7 +2,7 @@
 
 namespace ControleDeAmbiente.DAL.Migrations
 {
-    public partial class database : Migration
+    public partial class inicio : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -102,8 +102,11 @@ namespace ControleDeAmbiente.DAL.Migrations
                     AmbienteId = table.Column<int>(nullable: false),
                     ApiId = table.Column<int>(nullable: false),
                     WebId = table.Column<int>(nullable: false),
+                    ChamadoWeb = table.Column<string>(maxLength: 50, nullable: true),
                     IosId = table.Column<int>(nullable: false),
+                    ChamadoIos = table.Column<string>(maxLength: 50, nullable: true),
                     AndroidId = table.Column<int>(nullable: false),
+                    ChamadoAndroid = table.Column<string>(maxLength: 50, nullable: true),
                     NegocioId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
