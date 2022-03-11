@@ -8,6 +8,8 @@ namespace ControleDeAmbiente.BLL.Model
     {
         public int ChamadoId { get; set; }        
         public string Numero { get; set; }
+        public int AmbienteId { get; set; }
+        public Ambiente Ambiente { get; set; }
         public int ApiId { get; set; }
         public Api Api { get; set; }
         public int WebId { get; set; }
@@ -21,7 +23,7 @@ namespace ControleDeAmbiente.BLL.Model
         public string ChamadoAndroid { get; set; }
         public int NegocioId { get; set; }
         public Negocio Negocio { get; set; }
-        public IEnumerable<AmbienteChamado> AmbienteChamado { get; set; }
+        public bool Ativo { get; set; }
 
     }
 }

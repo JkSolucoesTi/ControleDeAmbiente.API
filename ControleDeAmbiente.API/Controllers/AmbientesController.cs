@@ -28,7 +28,7 @@ namespace ControleDeAmbiente.API.Controllers
         {
             try
             {
-                var ambientes = await _ambienteRepositorio.PegarTodosTeste();
+                var ambientes = await _ambienteRepositorio.PegarTodos().ToListAsync();
                 return Ok(ambientes);
             }
             catch (Exception ex)

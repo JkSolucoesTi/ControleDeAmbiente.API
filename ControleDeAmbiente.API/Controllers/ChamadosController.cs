@@ -37,14 +37,11 @@ namespace ControleDeAmbiente.API.Controllers
         {
             try
             {
-                var retorno = await _chamadoRepositorio.VerificarAlocacao(1, chamado.ApiId);
-
-                AmbienteChamado t = new AmbienteChamado();
-                t.AmbienteId = 1;
-                t.ChamadoId = 2;
+                var retorno = await _chamadoRepositorio.VerificarAlocacao(chamado.AmbienteId, chamado.ApiId);
 
                 if (retorno == null)
                 {
+                    chamado.Ativo = true;
                     await _chamadoRepositorio.Inserir(chamado);
 
                     return Ok(new
@@ -77,7 +74,22 @@ namespace ControleDeAmbiente.API.Controllers
 
                 var liberar = await _chamadoRepositorio.VerificarAlocacao(AmbienteId, ApiId);
 
-                await _chamadoRepositorio.Excluir(liberar);
+                liberar.AndroidId = 1;
+                liberar.ChamadoAndroid = "";
+
+                liberar.IosId = 1;
+                liberar.ChamadoIos = "";
+                
+                liberar.WebId = 1;
+                liberar.ChamadoWeb = "";
+
+                liberar.ApiId = 1;               
+                liberar.AmbienteId = 1;
+
+                liberar.Ativo = false;
+
+
+                await _chamadoRepositorio.Atualizar(liberar);
 
                 return Ok(new
                 {
@@ -116,17 +128,8 @@ namespace ControleDeAmbiente.API.Controllers
         {
             try
             {
-                if(1 == ambienteIdOld && chamado.ApiId == apiIdOld)
-                {
-                    await _chamadoRepositorio.Atualizar(chamado);
-
-                    return Ok(new
-                    {
-                        mensagem = "Chamado atualizado com sucesso"
-                    });
-                }
-
-                var retorno = await _chamadoRepositorio.VerificarAlocacao(1, chamado.ApiId);
+              
+                var retorno = await _chamadoRepositorio.VerificarAlocacao(chamado.AmbienteId, chamado.ApiId);
 
                 if (retorno == null)
                 {
@@ -136,7 +139,7 @@ namespace ControleDeAmbiente.API.Controllers
 
                         atualizar.ChamadoId = chamado.ChamadoId;
                         atualizar.Numero = chamado.Numero;
-                       // atualizar.AmbienteId = chamado.AmbienteId;
+                        atualizar.AmbienteId = chamado.AmbienteId;
                         atualizar.WebId = chamado.WebId;
                         atualizar.IosId = chamado.IosId;
                         atualizar.ApiId = chamado.ApiId;

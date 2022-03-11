@@ -8,6 +8,5 @@ namespace ControleDeAmbiente.BLL.Model
     {
         public int AmbienteId { get; set; }
         public string Nome { get; set; }
-        public IEnumerable<AmbienteChamado> AmbienteChamado { get; set; }
     }
 }

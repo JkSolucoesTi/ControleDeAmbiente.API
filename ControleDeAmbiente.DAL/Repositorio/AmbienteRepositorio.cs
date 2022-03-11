@@ -21,10 +21,7 @@ namespace ControleDeAmbiente.DAL.Repositorio
         {
             try
             {
-                var chamados =  await _contexto.Ambientes
-                   .Include(a => a.AmbienteChamado)
-                   .ThenInclude(a => a.Chamado.AmbienteChamado).ToListAsync();
-
+                var chamados = await _contexto.Ambientes.ToListAsync();
                 return (IQueryable<IEnumerable<Ambiente>>)chamados;
 
             }

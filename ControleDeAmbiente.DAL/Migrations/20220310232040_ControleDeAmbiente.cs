@@ -2,7 +2,7 @@
 
 namespace ControleDeAmbiente.DAL.Migrations
 {
-    public partial class database : Migration
+    public partial class ControleDeAmbiente : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -99,6 +99,7 @@ namespace ControleDeAmbiente.DAL.Migrations
                     ChamadoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Numero = table.Column<string>(maxLength: 50, nullable: false),
+                    AmbienteId = table.Column<int>(nullable: false),
                     ApiId = table.Column<int>(nullable: false),
                     WebId = table.Column<int>(nullable: false),
                     ChamadoWeb = table.Column<string>(maxLength: 50, nullable: true),
@@ -106,11 +107,18 @@ namespace ControleDeAmbiente.DAL.Migrations
                     ChamadoIos = table.Column<string>(maxLength: 50, nullable: true),
                     AndroidId = table.Column<int>(nullable: false),
                     ChamadoAndroid = table.Column<string>(maxLength: 50, nullable: true),
-                    NegocioId = table.Column<int>(nullable: false)
+                    NegocioId = table.Column<int>(nullable: false),
+                    Ativo = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Chamado", x => x.ChamadoId);
+                    table.ForeignKey(
+                        name: "FK_Chamado_Ambientes_AmbienteId",
+                        column: x => x.AmbienteId,
+                        principalTable: "Ambientes",
+                        principalColumn: "AmbienteId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Chamado_Android_AndroidId",
                         column: x => x.AndroidId,
@@ -143,34 +151,10 @@ namespace ControleDeAmbiente.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "AmbienteChamado",
-                columns: table => new
-                {
-                    ChamadoId = table.Column<int>(nullable: false),
-                    AmbienteId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AmbienteChamado", x => new { x.AmbienteId, x.ChamadoId });
-                    table.ForeignKey(
-                        name: "FK_AmbienteChamado_Ambientes_AmbienteId",
-                        column: x => x.AmbienteId,
-                        principalTable: "Ambientes",
-                        principalColumn: "AmbienteId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AmbienteChamado_Chamado_ChamadoId",
-                        column: x => x.ChamadoId,
-                        principalTable: "Chamado",
-                        principalColumn: "ChamadoId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
-                name: "IX_AmbienteChamado_ChamadoId",
-                table: "AmbienteChamado",
-                column: "ChamadoId");
+                name: "IX_Chamado_AmbienteId",
+                table: "Chamado",
+                column: "AmbienteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Chamado_AndroidId",
@@ -201,13 +185,10 @@ namespace ControleDeAmbiente.DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AmbienteChamado");
+                name: "Chamado");
 
             migrationBuilder.DropTable(
                 name: "Ambientes");
-
-            migrationBuilder.DropTable(
-                name: "Chamado");
 
             migrationBuilder.DropTable(
                 name: "Android");
