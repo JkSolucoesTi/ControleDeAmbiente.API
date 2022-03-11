@@ -74,6 +74,10 @@ namespace ControleDeAmbiente.API.Controllers
 
                 var liberar = await _chamadoRepositorio.VerificarAlocacao(AmbienteId, ApiId);
 
+                liberar.Numero = "";
+
+                liberar.NegocioId = 1;
+
                 liberar.AndroidId = 1;
                 liberar.ChamadoAndroid = "";
 
@@ -85,6 +89,8 @@ namespace ControleDeAmbiente.API.Controllers
 
                 liberar.ApiId = 1;               
                 liberar.AmbienteId = 1;
+
+                liberar.Descricao = "";
 
                 liberar.Ativo = false;
 
@@ -131,7 +137,7 @@ namespace ControleDeAmbiente.API.Controllers
               
                 var retorno = await _chamadoRepositorio.VerificarAlocacao(chamado.AmbienteId, chamado.ApiId);
 
-                if (retorno == null)
+                if (retorno == null || retorno.AmbienteId == ambienteIdOld && retorno.ApiId == apiIdOld)
                 {
                     var atualizar = await _chamadoRepositorio.PegarPorId(chamado.ChamadoId);
                     if (chamado.ChamadoId == Id)
@@ -139,11 +145,22 @@ namespace ControleDeAmbiente.API.Controllers
 
                         atualizar.ChamadoId = chamado.ChamadoId;
                         atualizar.Numero = chamado.Numero;
-                        atualizar.AmbienteId = chamado.AmbienteId;
+                        atualizar.AmbienteId = chamado.AmbienteId;                        
+
+
                         atualizar.WebId = chamado.WebId;
+                        atualizar.ChamadoWeb = chamado.ChamadoWeb;
+
+                        atualizar.AndroidId = chamado.AndroidId;
+                        atualizar.ChamadoAndroid = chamado.ChamadoAndroid;
+
                         atualizar.IosId = chamado.IosId;
+                        atualizar.ChamadoIos = chamado.ChamadoIos;
+
                         atualizar.ApiId = chamado.ApiId;
                         atualizar.NegocioId = chamado.NegocioId;
+
+                        atualizar.Descricao = chamado.Descricao;
 
                         await _chamadoRepositorio.Atualizar(atualizar);
 

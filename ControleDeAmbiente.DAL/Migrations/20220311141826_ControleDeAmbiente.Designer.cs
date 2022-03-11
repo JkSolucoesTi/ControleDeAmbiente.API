@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleDeAmbiente.DAL.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20220310232040_ControleDeAmbiente")]
+    [Migration("20220311141826_ControleDeAmbiente")]
     partial class ControleDeAmbiente
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -116,6 +116,11 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.Property<string>("ChamadoWeb")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<int>("IosId")
                         .HasColumnType("int");

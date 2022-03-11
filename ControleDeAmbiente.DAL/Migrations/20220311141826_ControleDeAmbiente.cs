@@ -99,6 +99,7 @@ namespace ControleDeAmbiente.DAL.Migrations
                     ChamadoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Numero = table.Column<string>(maxLength: 50, nullable: false),
+                    Descricao = table.Column<string>(maxLength: 100, nullable: false),
                     AmbienteId = table.Column<int>(nullable: false),
                     ApiId = table.Column<int>(nullable: false),
                     WebId = table.Column<int>(nullable: false),
