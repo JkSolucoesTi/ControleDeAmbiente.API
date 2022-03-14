@@ -88,7 +88,6 @@ namespace ControleDeAmbiente.API.Controllers
                 liberar.ChamadoWeb = "";
 
                 liberar.ApiId = 1;               
-                liberar.AmbienteId = 1;
 
                 liberar.Descricao = "";
 
@@ -161,6 +160,8 @@ namespace ControleDeAmbiente.API.Controllers
                         atualizar.NegocioId = chamado.NegocioId;
 
                         atualizar.Descricao = chamado.Descricao;
+
+                        atualizar.Ativo = true;
 
                         await _chamadoRepositorio.Atualizar(atualizar);
 

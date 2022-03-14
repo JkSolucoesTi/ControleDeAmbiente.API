@@ -6,7 +6,6 @@ BEGIN TRY
 
 insert into Api(Nome,Descricao)
 values('Mobile','Api Mobile'),
-('Investimento','Api Investimento'),
 ('PIX','Api Pix')
 
 insert into Negocio(Nome,Email)
@@ -52,6 +51,21 @@ values('DEV 01'),
 	  ('DEV 09'),
 	  ('DEV 10'),
 	  ('DEV 11')
+
+insert into chamado(numero,descricao,ambienteid,apiid,webid,chamadoweb,iosid,chamadoios,androidid,chamadoandroid,negocioid,ativo)
+values
+('','',1,1,1,'',1,'',1,'',1,0),
+('','',2,1,1,'',1,'',1,'',1,0),
+('','',3,1,1,'',1,'',1,'',1,0),
+('','',4,1,1,'',1,'',1,'',1,0),
+('','',5,1,1,'',1,'',1,'',1,0),
+('','',6,1,1,'',1,'',1,'',1,0),
+('','',7,1,1,'',1,'',1,'',1,0),
+('','',8,1,1,'',1,'',1,'',1,0),
+('','',9,1,1,'',1,'',1,'',1,0),
+('','',10,1,1,'',1,'',1,'',1,0),
+('','',11,1,1,'',1,'',1,'',1,0)
+
 
 COMMIT TRAN
 END TRY
