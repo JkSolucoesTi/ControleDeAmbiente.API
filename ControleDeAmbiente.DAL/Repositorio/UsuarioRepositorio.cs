@@ -17,15 +17,16 @@ namespace ControleDeAmbiente.DAL.Repositorio
             _contexto = contexto;
         }
 
-        public async Task<Usuario> Login(string login , string senha)
+        public Task<Usuario> Login(string login , string senha)
         {
             try
             {
-                var usuarioLogado = await _contexto.Usuarios
+                var usuarioLogado = _contexto.Usuarios
                     .Where(x => x.Login == login)
-                    .Where(x => x.Senha == senha).FirstOrDefaultAsync();
+                    .Where(x => x.Senha == senha)
+                    .FirstOrDefault();
 
-                return usuarioLogado;
+                return Task.FromResult(usuarioLogado);
             }
             catch (Exception ex)
             {

@@ -1,5 +1,7 @@
-﻿using ControleDeAmbiente.BLL.Model;
+﻿using ControleDeAmbiente.API.Services;
+using ControleDeAmbiente.BLL.Model;
 using ControleDeAmbiente.DAL.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,26 +22,24 @@ namespace ControleDeAmbiente.API.Controllers
         }
 
         [HttpPost("LoginUsuario")]
-        public async Task<ActionResult<Usuario>> Logar(Usuario usuario)
+        public async Task<ActionResult> Logar(Usuario usuario)
         {
             try
             {
-                if (usuario == null)
-                {
-                    return BadRequest( new { 
-                    
-                        mensagem = "Não foi possível identificar o usuário"
-                    });
-                }
 
-                var usuarioLogado = _usuarioRepositorio.Login(usuario.Login, usuario.Senha);
+                var usuarioLogado = await _usuarioRepositorio.Login(usuario.Login, usuario.Senha);
 
-                if (usuarioLogado.Result != null)
+                if (usuarioLogado != null)
                 {
+
+                    var token = TokenService.GerarToken(usuarioLogado, usuarioLogado.Perfil);
+
                     return Ok(new
                     {
-                        mensagem = "Api adicionada com sucesso",
-                        usuario = usuarioLogado
+                        email = usuarioLogado.Email,
+                        perfil = usuarioLogado.Perfil,
+                        usuario = usuarioLogado.Nome,
+                        token = token
                     });
                 }
                 else
