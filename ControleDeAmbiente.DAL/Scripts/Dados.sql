@@ -66,6 +66,14 @@ values
 ('','',10,1,1,'',1,'',1,'',1,0),
 ('','',11,1,1,'',1,'',1,'',1,0)
 
+insert into Usuario(Login,Nome,Email,Senha,Perfil)
+values(
+'jm0002',
+'Marco Gonçalves',
+'marco.goncalves@bancodaycoval.com.br',
+'12345678',
+'ADMIN')
+
 
 COMMIT TRAN
 END TRY
