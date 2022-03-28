@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleDeAmbiente.DAL.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20220318174352_ControleDeAmbiente")]
-    partial class ControleDeAmbiente
+    [Migration("20220327133315_addTableServidor")]
+    partial class addTableServidor
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -200,6 +200,28 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Negocio");
+                });
+
+            modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Servidor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Dominio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Servidor");
                 });
 
             modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Usuario", b =>

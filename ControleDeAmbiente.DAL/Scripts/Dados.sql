@@ -74,6 +74,14 @@ values(
 '12345678',
 'ADMIN')
 
+insert into Servidor(Nome,Dominio)
+Values
+('Mobile','SDAYSP06QA009'),
+('Remoting','SDAYSP06D040'),
+('Backoffice','SDAYSP06D041'),
+('Investimento','SDAYSP06D043'),
+('Dayconnect','SDAYSP06D044')
+
 
 COMMIT TRAN
 END TRY

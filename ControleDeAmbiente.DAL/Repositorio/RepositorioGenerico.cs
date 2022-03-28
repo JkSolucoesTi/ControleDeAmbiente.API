@@ -23,7 +23,6 @@ namespace ControleDeAmbiente.DAL.Repositorio
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }

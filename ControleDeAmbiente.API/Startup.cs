@@ -41,6 +41,7 @@ namespace ControleDeAmbiente.API
             services.AddScoped<IApiRepositorio, ApiRepositorio>();
             services.AddScoped<IChamadoRepositorio, ChamadoRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<IServidorRepositorio, ServidorRepositorio>();
 
 
             var key = Encoding.ASCII.GetBytes(Settings.ChaveSecreta);
@@ -96,6 +97,7 @@ namespace ControleDeAmbiente.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
                 c.RoutePrefix = string.Empty;
+                c.DefaultModelsExpandDepth(-1);
             });
 
             app.UseCors(opcoes => opcoes.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
