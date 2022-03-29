@@ -9,5 +9,6 @@ namespace ControleDeAmbiente.BLL.Model
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Dominio { get; set; }
+        public List<Ambiente> Ambientes {get;set;}
     }
 }
