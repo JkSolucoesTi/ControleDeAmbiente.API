@@ -4,6 +4,26 @@ go
 BEGIN TRAN
 BEGIN TRY
 
+insert into Desenvolvedor(Nome,Usuario,Email,TipoDesenvolvedorId)
+values
+('Sem alocação','jm0002','marco.goncalves@bancodaycolva.com.br',1),
+('Ciro','jm0002','marco.goncalves@bancodaycolva.com.br',1),
+('Marco','jm0002','marco.goncalves@bancodaycolva.com.br',1),
+('Michele','jm0002','marco.goncalves@bancodaycolva.com.br',1),
+('Marcelo','jm0002','marco.goncalves@bancodaycolva.com.br',1),
+('Douglas','jm0002','marco.goncalves@bancodaycolva.com.br',1),
+('Carlos','jm0002','marco.goncalves@bancodaycolva.com.br',1),
+
+('Sem alocação','jm0002','marco.goncalves@bancodaycolva.com.br',2),
+('Adauto','jm0002','marco.goncalves@bancodaycolva.com.br',2),
+('Valeria','jm0002','marco.goncalves@bancodaycolva.com.br',2),
+('Romulo','jm0002','marco.goncalves@bancodaycolva.com.br',2),
+
+('Sem alocação','jm0002','marco.goncalves@bancodaycolva.com.br',3),
+('Jarber','jm0002','marco.goncalves@bancodaycolva.com.br',3),
+('Will','jm0002','marco.goncalves@bancodaycolva.com.br',3),
+('Andre','jm0002','marco.goncalves@bancodaycolva.com.br',3)
+
 insert into Api(Nome,Descricao)
 values('Mobile','Api Mobile'),
 ('PIX','Api Pix')
