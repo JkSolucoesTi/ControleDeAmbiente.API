@@ -18,16 +18,21 @@ namespace ControleDeAmbiente.API.Controllers
         private readonly IAndroidRepositorio _androidRepositorio;
         private readonly IWebRepositorio _webRepositorio;
         private readonly IIosRepositorio _iosRepositorio;
-
+        private readonly IDesenvolvedorRepositorio _desenvolvedorRepositorio;
+        private readonly ITipoDesenvolvedorRepositorio _tipoDesenvolvedorRepositorio;
         public DesenvolvedoresController(
             IAndroidRepositorio androidRepositorio,
             IWebRepositorio webRepositorio,
-            IIosRepositorio iosRepositorio            
+            IIosRepositorio iosRepositorio,
+            IDesenvolvedorRepositorio desenvolvedorRepositorio,
+            ITipoDesenvolvedorRepositorio tipoDesenvolvedorRepositorio
             )
         {
             _androidRepositorio = androidRepositorio;
             _webRepositorio = webRepositorio;
             _iosRepositorio = iosRepositorio;
+            _desenvolvedorRepositorio = desenvolvedorRepositorio;
+            _tipoDesenvolvedorRepositorio = tipoDesenvolvedorRepositorio;
         }
 
         [HttpGet("Android")]
@@ -333,6 +338,34 @@ namespace ControleDeAmbiente.API.Controllers
             {
                 return NotFound(ex);
             }
+        }
+
+        [HttpGet()]
+        public async Task<ActionResult<IEnumerable<Desenvolvedor>>> ObterDesenvolvedores()
+        {
+            try
+            {
+                return Ok(await _desenvolvedorRepositorio.PegarTodos().ToListAsync());
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+
+        }
+
+        [HttpGet("TipoDesenvolvedores")]
+        public async Task<ActionResult<IEnumerable<TipoDesenvolvedor>>> ObterTipoDesenvolvedores()
+        {
+            try
+            {
+                return Ok(await _tipoDesenvolvedorRepositorio.PegarTodos().ToListAsync());
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+
         }
 
     }

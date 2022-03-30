@@ -4,8 +4,9 @@ using System.Text;
 
 namespace ControleDeAmbiente.BLL.Model
 {
-    public class Web : Desenvolvedor
+    public class Web : Pessoa
     {
         public int Id { get; set; }
     }
+
 }

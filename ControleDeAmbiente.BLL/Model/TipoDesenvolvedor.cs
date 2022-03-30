@@ -4,8 +4,9 @@ using System.Text;
 
 namespace ControleDeAmbiente.BLL.Model
 {
-    public class Ios : Pessoa
+    public class TipoDesenvolvedor
     {
         public int Id { get; set; }
+        public string Tipo { get; set; }
     }
 }

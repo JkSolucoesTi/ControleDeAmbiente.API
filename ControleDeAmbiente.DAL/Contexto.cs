@@ -18,7 +18,8 @@ namespace ControleDeAmbiente.DAL
         public DbSet<Api> Api { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Servidor> Servidor { get; set; }
-
+        public DbSet<Desenvolvedor> Desenvolvedor { get; set; }
+        public DbSet<TipoDesenvolvedor> TipoDesenvolvedor { get; set; }
 
         public Contexto(DbContextOptions<Contexto> opcoes) : base(opcoes)
         {
@@ -37,6 +38,8 @@ namespace ControleDeAmbiente.DAL
             builder.ApplyConfiguration(new ChamadoMap());
             builder.ApplyConfiguration(new UsuarioMap());
             builder.ApplyConfiguration(new ServidorMap());
+            builder.ApplyConfiguration(new DesenvolvedorMap());
+            builder.ApplyConfiguration(new TipoDesenvolvedorMap());
         }
     }
 }

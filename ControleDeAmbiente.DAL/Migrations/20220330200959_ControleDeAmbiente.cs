@@ -7,27 +7,14 @@ namespace ControleDeAmbiente.DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Ambientes",
-                columns: table => new
-                {
-                    AmbienteId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Ambientes", x => x.AmbienteId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Android",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(maxLength: 50, nullable: false),
-                    Usuario = table.Column<string>(maxLength: 50, nullable: false),
-                    Email = table.Column<string>(maxLength: 50, nullable: false)
+                    Email = table.Column<string>(maxLength: 50, nullable: false),
+                    Usuario = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,8 +42,8 @@ namespace ControleDeAmbiente.DAL.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(maxLength: 50, nullable: false),
-                    Usuario = table.Column<string>(maxLength: 50, nullable: false),
-                    Email = table.Column<string>(maxLength: 50, nullable: false)
+                    Email = table.Column<string>(maxLength: 50, nullable: false),
+                    Usuario = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -75,6 +62,33 @@ namespace ControleDeAmbiente.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Negocio", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Servidor",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(maxLength: 50, nullable: false),
+                    Dominio = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Servidor", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TipoDesenvolvedor",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Tipo = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TipoDesenvolvedor", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,12 +115,54 @@ namespace ControleDeAmbiente.DAL.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(maxLength: 50, nullable: false),
-                    Usuario = table.Column<string>(maxLength: 50, nullable: false),
-                    Email = table.Column<string>(maxLength: 50, nullable: false)
+                    Email = table.Column<string>(maxLength: 50, nullable: false),
+                    Usuario = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Web", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ambientes",
+                columns: table => new
+                {
+                    AmbienteId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(maxLength: 50, nullable: false),
+                    ServidorId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ambientes", x => x.AmbienteId);
+                    table.ForeignKey(
+                        name: "FK_Ambientes_Servidor_ServidorId",
+                        column: x => x.ServidorId,
+                        principalTable: "Servidor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Desenvolvedor",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(maxLength: 50, nullable: false),
+                    Usuario = table.Column<string>(maxLength: 50, nullable: false),
+                    Email = table.Column<string>(maxLength: 50, nullable: false),
+                    TipoDesenvolvedorId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Desenvolvedor", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Desenvolvedor_TipoDesenvolvedor_TipoDesenvolvedorId",
+                        column: x => x.TipoDesenvolvedorId,
+                        principalTable: "TipoDesenvolvedor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -170,6 +226,11 @@ namespace ControleDeAmbiente.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Ambientes_ServidorId",
+                table: "Ambientes",
+                column: "ServidorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Chamado_AmbienteId",
                 table: "Chamado",
                 column: "AmbienteId");
@@ -198,12 +259,20 @@ namespace ControleDeAmbiente.DAL.Migrations
                 name: "IX_Chamado_WebId",
                 table: "Chamado",
                 column: "WebId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Desenvolvedor_TipoDesenvolvedorId",
+                table: "Desenvolvedor",
+                column: "TipoDesenvolvedorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Chamado");
+
+            migrationBuilder.DropTable(
+                name: "Desenvolvedor");
 
             migrationBuilder.DropTable(
                 name: "Usuario");
@@ -225,6 +294,12 @@ namespace ControleDeAmbiente.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Web");
+
+            migrationBuilder.DropTable(
+                name: "TipoDesenvolvedor");
+
+            migrationBuilder.DropTable(
+                name: "Servidor");
         }
     }
 }

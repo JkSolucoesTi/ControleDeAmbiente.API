@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ControleDeAmbiente.BLL.Model
 {
-    public class Android : Desenvolvedor
+    public class Android : Pessoa
     {
         public int Id { get; set; }
     }

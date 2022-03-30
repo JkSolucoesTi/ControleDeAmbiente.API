@@ -42,7 +42,8 @@ namespace ControleDeAmbiente.API
             services.AddScoped<IChamadoRepositorio, ChamadoRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             services.AddScoped<IServidorRepositorio, ServidorRepositorio>();
-
+            services.AddScoped<IDesenvolvedorRepositorio, DesenvolvedorRepositorio>();
+            services.AddScoped<ITipoDesenvolvedorRepositorio, TipoDesenvolvedorRepositorio>();
 
             var key = Encoding.ASCII.GetBytes(Settings.ChaveSecreta);
 

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleDeAmbiente.DAL.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20220329093249_AddRelationalAmbiente")]
-    partial class AddRelationalAmbiente
+    [Migration("20220330200959_ControleDeAmbiente")]
+    partial class ControleDeAmbiente
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -159,6 +159,38 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.ToTable("Chamado");
                 });
 
+            modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Desenvolvedor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<int>("TipoDesenvolvedorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Usuario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TipoDesenvolvedorId");
+
+                    b.ToTable("Desenvolvedor");
+                });
+
             modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Ios", b =>
                 {
                     b.Property<int>("Id")
@@ -228,6 +260,21 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Servidor");
+                });
+
+            modelBuilder.Entity("ControleDeAmbiente.BLL.Model.TipoDesenvolvedor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Tipo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TipoDesenvolvedor");
                 });
 
             modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Usuario", b =>
@@ -336,6 +383,15 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.HasOne("ControleDeAmbiente.BLL.Model.Web", "Web")
                         .WithMany()
                         .HasForeignKey("WebId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Desenvolvedor", b =>
+                {
+                    b.HasOne("ControleDeAmbiente.BLL.Model.TipoDesenvolvedor", "TipoDesenvolvedor")
+                        .WithMany()
+                        .HasForeignKey("TipoDesenvolvedorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
