@@ -27,7 +27,6 @@ namespace ControleDeAmbiente.DAL.Repositorio
                     .Include(a => a.Android)
                     .Include(a => a.Negocio)
                     .Where(i => i.Numero == numeroChamado)
- //                   .Where(i => i.AmbienteChamado.Nome == nomeAmbiente)
                     .FirstOrDefaultAsync();
             }
             catch (Exception)

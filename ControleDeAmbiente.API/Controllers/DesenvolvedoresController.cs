@@ -42,7 +42,7 @@ namespace ControleDeAmbiente.API.Controllers
             {
                 return Ok(await _androidRepositorio.PegarTodos().ToListAsync());
 
-               }
+            }
             catch (Exception ex)
             {
                 return NotFound(ex);
@@ -123,7 +123,7 @@ namespace ControleDeAmbiente.API.Controllers
             try
             {
                 var android = await _androidRepositorio.PegarPorId(Id);
-                 await _androidRepositorio.Excluir(android);
+                await _androidRepositorio.Excluir(android);
 
                 return Ok(new
                 {
@@ -354,6 +354,63 @@ namespace ControleDeAmbiente.API.Controllers
 
         }
 
+        [HttpGet("{Id}")]
+        public async Task<ActionResult<IEnumerable<Ios>>> ObterDesenvolvedorPorId(int Id)
+        {
+            try
+            {
+                return Ok(await _desenvolvedorRepositorio.PegarPorId(Id));
+
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult<Android>> ExcluirDesenvolvedor(int Id)
+        {
+            try
+            {
+                var desenvolvedor = await _desenvolvedorRepositorio.PegarPorId(Id);
+                await _desenvolvedorRepositorio.Excluir(desenvolvedor);
+
+                return Ok(new
+                {
+                    codigo = 1,
+                    mensagem = "Desenvolvedor excluído com sucesso"
+                });
+
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+        }
+
+
+        [HttpPost()]
+        public async Task<ActionResult<Desenvolvedor>> AdicionarDesenvolvedor(Desenvolvedor desenvolvedor)
+        {
+            try
+            {
+                await _desenvolvedorRepositorio.Inserir(desenvolvedor);
+                return Ok(new
+                {
+                    mensagem = "Desenvolvedor inserido com sucesso"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    mensagem = "Não foi possível adicionar o desenvolvedor"
+                });
+            }
+        }
+
         [HttpGet("TipoDesenvolvedores")]
         public async Task<ActionResult<IEnumerable<TipoDesenvolvedor>>> ObterTipoDesenvolvedores()
         {
@@ -366,6 +423,38 @@ namespace ControleDeAmbiente.API.Controllers
                 return NotFound(ex);
             }
 
+        }
+
+        [HttpPut("Atualizar/{Id}")]
+        public async Task<ActionResult<Ios>> AtualizarDesenvolvedor(Desenvolvedor desenvolvedor, int Id)
+        {
+            try
+            {
+                if (desenvolvedor.Id == Id)
+                {
+                    var desenvolvedorAtualizar = await _desenvolvedorRepositorio.PegarPorId(Id);
+                    desenvolvedorAtualizar.Nome = desenvolvedor.Nome;
+                    desenvolvedorAtualizar.Usuario = desenvolvedor.Usuario;
+                    desenvolvedorAtualizar.Email = desenvolvedor.Email;
+                    desenvolvedorAtualizar.TipoDesenvolvedorId = desenvolvedor.TipoDesenvolvedorId;
+
+                    await _desenvolvedorRepositorio.Atualizar(desenvolvedorAtualizar);
+
+                    return Ok(new
+                    {
+                        mensagem = "Desenvolvedor atualizado com sucesso"
+                    });
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
         }
 
     }
