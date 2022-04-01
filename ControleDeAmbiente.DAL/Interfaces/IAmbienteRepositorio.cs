@@ -12,5 +12,7 @@ namespace ControleDeAmbiente.DAL.Interfaces
         public IQueryable<Ambiente> PegarTodosTeste();
 
         new Task<Ambiente> PegarPorId(int id);
+
+        Task<Ambiente> ObterPorIdTeste(int id);
     }
 }

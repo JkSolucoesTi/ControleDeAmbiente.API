@@ -39,5 +39,53 @@ namespace ControleDeAmbiente.API.Controllers
             }
 
         }
+
+        [HttpGet("{Id}")]
+        public async Task<ActionResult<IEnumerable<Ambiente>>> ObterApiPorId(int Id)
+        {
+            try
+            {
+                var ambiente = await _ambienteRepositorio.ObterPorIdTeste(Id);
+
+                return Ok(ambiente);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+
+        }
+
+        [HttpPut("Atualizar/{Id}")]
+        public async Task<ActionResult<Servidor>> AtualizarAmbiente(Ambiente ambiente, int Id)
+        {
+            try
+            {
+                if (ambiente.AmbienteId == Id)
+                {
+                    var resultado = await _ambienteRepositorio.PegarPorId(Id);
+                    resultado.Nome = ambiente.Nome;
+                    resultado.ServidorId = ambiente.ServidorId;
+
+                    await _ambienteRepositorio.Atualizar(resultado);
+
+                    return Ok(new
+                    {
+                        mensagem = "Ambiente atualizado com sucesso"
+                    });
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+        }
+
+
     }
 }

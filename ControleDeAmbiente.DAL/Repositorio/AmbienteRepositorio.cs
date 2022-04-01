@@ -32,5 +32,22 @@ namespace ControleDeAmbiente.DAL.Repositorio
             }
         }
 
+        public async Task<Ambiente> ObterPorIdTeste(int id)
+        {
+            try
+            {
+                var chamados = await  _contexto.Ambientes
+                    .Include(x => x.Servidor)
+                    .Where(x => x.AmbienteId == id)
+                    .FirstOrDefaultAsync();
+                return chamados;
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
     }
 }
