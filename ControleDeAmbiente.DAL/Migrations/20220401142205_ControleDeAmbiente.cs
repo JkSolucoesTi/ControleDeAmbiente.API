@@ -84,7 +84,7 @@ namespace ControleDeAmbiente.DAL.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Tipo = table.Column<string>(nullable: true)
+                    Tipo = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -130,7 +130,7 @@ namespace ControleDeAmbiente.DAL.Migrations
                     AmbienteId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(maxLength: 50, nullable: false),
-                    ServidorId = table.Column<int>(nullable: true)
+                    ServidorId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -140,7 +140,7 @@ namespace ControleDeAmbiente.DAL.Migrations
                         column: x => x.ServidorId,
                         principalTable: "Servidor",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

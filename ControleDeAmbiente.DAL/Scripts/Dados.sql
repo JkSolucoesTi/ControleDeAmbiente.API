@@ -4,6 +4,9 @@ go
 BEGIN TRAN
 BEGIN TRY
 
+insert into TipoDesenvolvedor(Tipo)
+values('Web'),('Android'),('IOS')
+
 insert into Desenvolvedor(Nome,Usuario,Email,TipoDesenvolvedorId)
 values
 ('Sem alocação','jm0002','marco.goncalves@bancodaycolva.com.br',1),
