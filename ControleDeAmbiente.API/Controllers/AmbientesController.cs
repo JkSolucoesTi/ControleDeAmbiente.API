@@ -86,6 +86,56 @@ namespace ControleDeAmbiente.API.Controllers
             }
         }
 
+        [HttpPost()]
+        public async Task<ActionResult<Ambiente>> AdicionarAmbiente(Ambiente ambiente)
+        {
+            try
+            {
+                await _ambienteRepositorio.Inserir(ambiente);
+
+                return Ok(new
+                {
+                    mensagem = "O ambiente foi inserido com sucesso"
+                });
+            }
+            catch (Exception)
+            {
+                return BadRequest(new
+                {
+                    mensagem = "Não foi possível inserir o ambiente"
+                });
+            }
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult<Ambiente>> ExcluirAmbiente(int id)
+        {
+            try
+            {
+                var ambiente = await _ambienteRepositorio.PegarPorId(id);
+                if(ambiente != null)
+                {
+                    await _ambienteRepositorio.Excluir(ambiente);
+                    return Ok(new
+                    {
+                        mensagem = "O Ambiente foi excluído com sucesso"
+                    });
+                }
+
+                return NotFound(new
+                {
+                    mensagem = "O Ambiente não foi encontrado"
+                });
+            }
+            catch (Exception)
+            {
+                return BadRequest(new
+                {
+                    mensagem = "Não foi possível excluir o ambiente"
+                });                
+            }
+        }
+
 
     }
 }
