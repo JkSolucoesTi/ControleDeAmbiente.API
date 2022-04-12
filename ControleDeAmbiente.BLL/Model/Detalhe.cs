@@ -9,6 +9,7 @@ namespace ControleDeAmbiente.BLL.Model
         public int Id { get; set; }
         public string Numero { get; set; }
         public int ChamadoId { get; set; }
+        public Chamado Chamado { get; set; }
         public int DesenvolvedorId { get; set; }
         public Desenvolvedor Desenvolvedor { get; set; }
         public int NegocioId { get; set; }

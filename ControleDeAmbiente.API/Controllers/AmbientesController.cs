@@ -66,6 +66,8 @@ namespace ControleDeAmbiente.API.Controllers
                     var resultado = await _ambienteRepositorio.PegarPorId(Id);
                     resultado.Nome = ambiente.Nome;
                     resultado.ServidorId = ambiente.ServidorId;
+                    resultado.DesenvolvedorId = ambiente.DesenvolvedorId;
+                    resultado.Acesso = ambiente.Acesso;
 
                     await _ambienteRepositorio.Atualizar(resultado);
 

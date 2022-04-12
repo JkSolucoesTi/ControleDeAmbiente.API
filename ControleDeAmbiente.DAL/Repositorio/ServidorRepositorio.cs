@@ -21,7 +21,9 @@ namespace ControleDeAmbiente.DAL.Repositorio
             try
             {
                 var chamados = await _contexto.Servidor
-                    .Include(x => x.Ambientes).ToListAsync();
+                    .Include(x => x.Ambientes)
+                    .ThenInclude(x => x.Desenvolvedor)
+                    .ToListAsync();
                 return chamados;
 
             }
