@@ -37,7 +37,7 @@ namespace ControleDeAmbiente.API.Controllers
         {
             try
             {
-                var retorno = await _chamadoRepositorio.VerificarAlocacao(chamado.AmbienteId, chamado.ApiId);
+                var retorno = await _chamadoRepositorio.VerificarAlocacao(chamado.AmbienteId);
 
                 if (retorno == null)
                 {
@@ -55,7 +55,7 @@ namespace ControleDeAmbiente.API.Controllers
                     return Ok(new
                     {
                         codigo = 2,
-                        mensagem = $"Não foi possível alocar no Ambiente {1} a API {retorno.Api.Nome} - Chamado {retorno.Numero}"
+                        mensagem = $"Não foi possível alocar no Ambiente {1} a API - Chamado {retorno.Numero}"
                     });
                 }
 
@@ -72,23 +72,8 @@ namespace ControleDeAmbiente.API.Controllers
             try
             {
 
-                var liberar = await _chamadoRepositorio.VerificarAlocacao(AmbienteId, ApiId);
-
+                var liberar = await _chamadoRepositorio.VerificarAlocacao(AmbienteId);
                 liberar.Numero = "";
-
-                liberar.NegocioId = 1;
-
-                liberar.AndroidId = 1;
-                liberar.ChamadoAndroid = "";
-
-                liberar.IosId = 1;
-                liberar.ChamadoIos = "";
-                
-                liberar.WebId = 1;
-                liberar.ChamadoWeb = "";
-
-                liberar.ApiId = 1;               
-
                 liberar.Descricao = "";
 
                 liberar.Ativo = false;
@@ -119,7 +104,7 @@ namespace ControleDeAmbiente.API.Controllers
         {
             try
             {
-                var alterar = await _chamadoRepositorio.VerificarAlocacao(AmbienteId, ApiId);
+                var alterar = await _chamadoRepositorio.VerificarAlocacao(AmbienteId);
                 return Ok(alterar);
             }
             catch (Exception)
@@ -134,9 +119,9 @@ namespace ControleDeAmbiente.API.Controllers
             try
             {
               
-                var retorno = await _chamadoRepositorio.VerificarAlocacao(chamado.AmbienteId, chamado.ApiId);
+                var retorno = await _chamadoRepositorio.VerificarAlocacao(chamado.AmbienteId);
 
-                if (retorno == null || retorno.AmbienteId == ambienteIdOld && retorno.ApiId == apiIdOld)
+                if (retorno == null || retorno.AmbienteId == ambienteIdOld)
                 {
                     var atualizar = await _chamadoRepositorio.PegarPorId(chamado.ChamadoId);
                     if (chamado.ChamadoId == Id)
@@ -145,20 +130,6 @@ namespace ControleDeAmbiente.API.Controllers
                         atualizar.ChamadoId = chamado.ChamadoId;
                         atualizar.Numero = chamado.Numero;
                         atualizar.AmbienteId = chamado.AmbienteId;                        
-
-
-                        atualizar.WebId = chamado.WebId;
-                        atualizar.ChamadoWeb = chamado.ChamadoWeb;
-
-                        atualizar.AndroidId = chamado.AndroidId;
-                        atualizar.ChamadoAndroid = chamado.ChamadoAndroid;
-
-                        atualizar.IosId = chamado.IosId;
-                        atualizar.ChamadoIos = chamado.ChamadoIos;
-
-                        atualizar.ApiId = chamado.ApiId;
-                        atualizar.NegocioId = chamado.NegocioId;
-
                         atualizar.Descricao = chamado.Descricao;
 
                         atualizar.Ativo = true;
@@ -180,7 +151,7 @@ namespace ControleDeAmbiente.API.Controllers
                     return Ok(new
                     {
                         codigo = 2,
-                        mensagem = $"Não foi possível alocar no Ambiente {1} a API {retorno.Api.Nome} - Chamado {retorno.Numero}"
+                        mensagem = $"Não foi possível alocar no Ambiente {1} a API - Chamado {retorno.Numero}"
                     });
                 }
             }

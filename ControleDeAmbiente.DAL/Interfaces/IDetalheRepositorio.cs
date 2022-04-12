@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ControleDeAmbiente.DAL.Interfaces
 {
-    public interface IIosRepositorio: IRepositorioGenerico<Ios>
+    public interface IDetalheRepositorio : IRepositorioGenerico<Detalhe>
     {
     }
 }

@@ -22,7 +22,8 @@ namespace ControleDeAmbiente.DAL.Repositorio
             try
             {
                 var chamados = _contexto.Ambientes
-                    .Include(x => x.Servidor);
+                    .Include(x => x.Servidor)
+                    .Include(x => x.Desenvolvedor);
                 return chamados;
 
             }
@@ -38,12 +39,13 @@ namespace ControleDeAmbiente.DAL.Repositorio
             {
                 var chamados = await  _contexto.Ambientes
                     .Include(x => x.Servidor)
+                    .Include(x => x.Desenvolvedor)
                     .Where(x => x.AmbienteId == id)
                     .FirstOrDefaultAsync();
                 return chamados;
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

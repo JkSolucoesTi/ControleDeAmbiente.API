@@ -13,6 +13,7 @@ namespace ControleDeAmbiente.BLL.Model
         public string Email { get; set; }
         public int TipoDesenvolvedorId { get; set; }
         public TipoDesenvolvedor TipoDesenvolvedor { get; set; }
+        public List<Detalhe> Detalhes { get; set; }
 
     }
 }

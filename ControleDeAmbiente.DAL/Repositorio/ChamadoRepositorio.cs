@@ -21,11 +21,6 @@ namespace ControleDeAmbiente.DAL.Repositorio
             {
                 return await _contexto
                     .Chamados
-                    .Include(a => a.Api)
-                    .Include(a => a.Web)
-                    .Include(a => a.Ios)
-                    .Include(a => a.Android)
-                    .Include(a => a.Negocio)
                     .Where(i => i.Numero == numeroChamado)
                     .FirstOrDefaultAsync();
             }
@@ -41,13 +36,7 @@ namespace ControleDeAmbiente.DAL.Repositorio
             try
             {
                 var chamados = _contexto.Chamados
-                   .Include(a => a.Ambiente)
-                   .Include(a => a.Android)
-                   .Include(i => i.Ios)
-                   .Include(a => a.Web)
-                   .Include(n => n.Negocio)
-                   .Include(a => a.Api);
-
+                   .Include(a => a.Ambiente);
                 return chamados;
 
             }
@@ -57,15 +46,13 @@ namespace ControleDeAmbiente.DAL.Repositorio
             }
         }
 
-        public Task<Chamado> VerificarAlocacao(int ambienteId, int apiId)
+        public Task<Chamado> VerificarAlocacao(int ambienteId)
         {
             try
             {
                 var resultado =  _contexto
                     .Chamados
-                    .Include(a => a.Api)
                     .Where(a => a.AmbienteId == ambienteId)
-                    .Where(i => i.ApiId == apiId)
                     .FirstOrDefault();
 
                 return Task.FromResult(resultado);

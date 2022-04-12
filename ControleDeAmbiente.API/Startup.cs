@@ -34,9 +34,6 @@ namespace ControleDeAmbiente.API
             services.AddDbContext<Contexto>(opcoes => opcoes.UseSqlServer(Configuration.GetConnectionString("ConexaoDB")));
 
             services.AddScoped<IAmbienteRepositorio,AmbienteRepositorio>();
-            services.AddScoped<IWebRepositorio, WebRepositorio>();
-            services.AddScoped<IIosRepositorio, IosRepositorio>();
-            services.AddScoped<IAndroidRepositorio, AndroidRepositorio>();
             services.AddScoped<INegocioRepositorio , NegocioRepositorio>();
             services.AddScoped<IApiRepositorio, ApiRepositorio>();
             services.AddScoped<IChamadoRepositorio, ChamadoRepositorio>();
