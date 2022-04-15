@@ -15,12 +15,14 @@ namespace ControleDeAmbiente.DAL.Repositorio
             _contexto = contexto;
         }
 
-        public async Task<Chamado> Detalhes(string numeroChamado, string nomeAmbiente)
+        public async Task<Chamado> Detalhes(string numeroChamado)
         {
             try
             {
                 return await _contexto
                     .Chamados
+                    .Include(a => a.Detalhes)
+                    .ThenInclude(a => a.Desenvolvedor)
                     .Where(i => i.Numero == numeroChamado)
                     .FirstOrDefaultAsync();
             }
@@ -57,6 +59,7 @@ namespace ControleDeAmbiente.DAL.Repositorio
             {
                 var resultado =  _contexto
                     .Chamados
+                    .Include(a => a.Ambiente)
                     .Where(a => a.AmbienteId == ambienteId)
                     .FirstOrDefault();
 

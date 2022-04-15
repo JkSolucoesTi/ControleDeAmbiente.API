@@ -47,15 +47,15 @@ namespace ControleDeAmbiente.API.Controllers
                     return Ok(new
                     {
                         codigo = 1,
-                        mensagem = $"Ambiente adicionado com sucesso"
+                        mensagem = $"Chamado adicionado com sucesso"
                     });
                 }
                 else
                 {
-                    return Ok(new
+                    return BadRequest(new
                     {
                         codigo = 2,
-                        mensagem = $"Não foi possível alocar no Ambiente {1} a API - Chamado {retorno.Numero}"
+                        mensagem = $"Não foi possível alocar o chamado {retorno.Numero} no ambiente {retorno.Ambiente.Nome}"
                     });
                 }
 
@@ -93,10 +93,20 @@ namespace ControleDeAmbiente.API.Controllers
             }
         }
 
-        [HttpGet("Detalhes/{NumeroChamado}/{NomeAmbiente}")]
-        public async Task<ActionResult<Chamado>> Detalhes(string NumeroChamado, string NomeAmbiente)
+        [HttpGet("Detalhes/{NumeroChamado}")]
+        public async Task<ActionResult<Chamado>> Detalhes(string NumeroChamado)
         {
-            return await _chamadoRepositorio.Detalhes(NumeroChamado, NomeAmbiente);
+            try
+            {
+                var detalhes = await _chamadoRepositorio.Detalhes(NumeroChamado);
+                return detalhes;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         [HttpGet("Alterar/{AmbienteId}/{ApiId}")]
