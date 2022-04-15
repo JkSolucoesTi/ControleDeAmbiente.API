@@ -14,7 +14,6 @@ namespace ControleDeAmbiente.DAL
         public DbSet<Servidor> Servidor { get; set; }
         public DbSet<Desenvolvedor> Desenvolvedor { get; set; }
         public DbSet<TipoDesenvolvedor> TipoDesenvolvedor { get; set; }
-
         public DbSet<Detalhe> Detalhe { get; set; }
         public Contexto(DbContextOptions<Contexto> opcoes) : base(opcoes)
         {

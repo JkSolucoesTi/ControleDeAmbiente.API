@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleDeAmbiente.DAL.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20220412023422_ColumnAcessoAmbiente")]
-    partial class ColumnAcessoAmbiente
+    [Migration("20220414140739_ControleDeAmbiente")]
+    partial class ControleDeAmbiente
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -92,6 +92,9 @@ namespace ControleDeAmbiente.DAL.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
+                    b.Property<int>("NegocioId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Numero")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
@@ -100,6 +103,8 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.HasKey("ChamadoId");
 
                     b.HasIndex("AmbienteId");
+
+                    b.HasIndex("NegocioId");
 
                     b.ToTable("Chamado");
                 });
@@ -149,18 +154,15 @@ namespace ControleDeAmbiente.DAL.Migrations
                     b.Property<int>("DesenvolvedorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("NegocioId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Numero")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DesenvolvedorId");
+                    b.HasIndex("ChamadoId");
 
-                    b.HasIndex("NegocioId");
+                    b.HasIndex("DesenvolvedorId");
 
                     b.ToTable("Detalhe");
                 });
@@ -285,6 +287,12 @@ namespace ControleDeAmbiente.DAL.Migrations
                         .HasForeignKey("AmbienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("ControleDeAmbiente.BLL.Model.Negocio", "Negocio")
+                        .WithMany()
+                        .HasForeignKey("NegocioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Desenvolvedor", b =>
@@ -298,16 +306,18 @@ namespace ControleDeAmbiente.DAL.Migrations
 
             modelBuilder.Entity("ControleDeAmbiente.BLL.Model.Detalhe", b =>
                 {
+                    b.HasOne("ControleDeAmbiente.BLL.Model.Chamado", "Chamado")
+                        .WithMany("Detalhes")
+                        .HasForeignKey("ChamadoId")
+                        .HasConstraintName("FK_Detalhes_Chamado")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("ControleDeAmbiente.BLL.Model.Desenvolvedor", "Desenvolvedor")
                         .WithMany("Detalhes")
                         .HasForeignKey("DesenvolvedorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ControleDeAmbiente.BLL.Model.Negocio", "Negocio")
-                        .WithMany()
-                        .HasForeignKey("NegocioId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasConstraintName("FK_Detalhes_Desenvolvedor")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

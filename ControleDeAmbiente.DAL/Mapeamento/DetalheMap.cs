@@ -11,8 +11,24 @@ namespace ControleDeAmbiente.DAL.Mapeamento
     {
         public void Configure(EntityTypeBuilder<Detalhe> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.Id);           
             builder.Property(x => x.Numero).HasMaxLength(50);
+
+            builder.HasOne(d => d.Chamado)
+                   .WithMany(p => p.Detalhes)
+                   .HasForeignKey(d => d.ChamadoId)
+                   .OnDelete(DeleteBehavior.NoAction)
+                   .HasConstraintName("FK_Detalhes_Chamado");
+
+            builder.HasOne(d => d.Desenvolvedor)
+                   .WithMany(p => p.Detalhes)
+                   .HasForeignKey(d => d.DesenvolvedorId)
+                   .OnDelete(DeleteBehavior.NoAction)
+                   .HasConstraintName("FK_Detalhes_Desenvolvedor");
+
+
+
+
         }
     }
 }

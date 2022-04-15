@@ -12,8 +12,6 @@ namespace ControleDeAmbiente.BLL.Model
         public Chamado Chamado { get; set; }
         public int DesenvolvedorId { get; set; }
         public Desenvolvedor Desenvolvedor { get; set; }
-        public int NegocioId { get; set; }
-        public Negocio Negocio { get; set; }
 
     }
 }

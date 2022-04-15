@@ -36,7 +36,12 @@ namespace ControleDeAmbiente.DAL.Repositorio
             try
             {
                 var chamados = _contexto.Chamados
-                   .Include(a => a.Ambiente);
+                   .Include(a => a.Ambiente)
+                   .Include(a => a.Negocio)
+                   .Include(a => a.Detalhes)   
+                   .ThenInclude(a => a.Desenvolvedor)
+                   .ThenInclude(a => a.TipoDesenvolvedor)
+                   ;
                 return chamados;
 
             }

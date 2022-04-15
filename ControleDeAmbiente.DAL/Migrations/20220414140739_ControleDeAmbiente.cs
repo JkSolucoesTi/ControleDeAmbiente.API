@@ -2,7 +2,7 @@
 
 namespace ControleDeAmbiente.DAL.Migrations
 {
-    public partial class CreateDataBase : Migration
+    public partial class ControleDeAmbiente : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -107,6 +107,7 @@ namespace ControleDeAmbiente.DAL.Migrations
                     AmbienteId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(maxLength: 50, nullable: false),
+                    Acesso = table.Column<string>(maxLength: 100, nullable: false),
                     DesenvolvedorId = table.Column<int>(nullable: false),
                     ServidorId = table.Column<int>(nullable: false)
                 },
@@ -128,34 +129,6 @@ namespace ControleDeAmbiente.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Detalhe",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Numero = table.Column<string>(maxLength: 50, nullable: true),
-                    ChamadoId = table.Column<int>(nullable: false),
-                    DesenvolvedorId = table.Column<int>(nullable: false),
-                    NegocioId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Detalhe", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Detalhe_Desenvolvedor_DesenvolvedorId",
-                        column: x => x.DesenvolvedorId,
-                        principalTable: "Desenvolvedor",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Detalhe_Negocio_NegocioId",
-                        column: x => x.NegocioId,
-                        principalTable: "Negocio",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Chamado",
                 columns: table => new
                 {
@@ -163,6 +136,7 @@ namespace ControleDeAmbiente.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Numero = table.Column<string>(maxLength: 50, nullable: false),
                     Descricao = table.Column<string>(maxLength: 100, nullable: false),
+                    NegocioId = table.Column<int>(nullable: false),
                     AmbienteId = table.Column<int>(nullable: false),
                     Ativo = table.Column<bool>(nullable: false)
                 },
@@ -175,6 +149,37 @@ namespace ControleDeAmbiente.DAL.Migrations
                         principalTable: "Ambientes",
                         principalColumn: "AmbienteId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Chamado_Negocio_NegocioId",
+                        column: x => x.NegocioId,
+                        principalTable: "Negocio",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Detalhe",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Numero = table.Column<string>(maxLength: 50, nullable: true),
+                    ChamadoId = table.Column<int>(nullable: false),
+                    DesenvolvedorId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Detalhe", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Detalhes_Chamado",
+                        column: x => x.ChamadoId,
+                        principalTable: "Chamado",
+                        principalColumn: "ChamadoId");
+                    table.ForeignKey(
+                        name: "FK_Detalhes_Desenvolvedor",
+                        column: x => x.DesenvolvedorId,
+                        principalTable: "Desenvolvedor",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -193,19 +198,24 @@ namespace ControleDeAmbiente.DAL.Migrations
                 column: "AmbienteId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Chamado_NegocioId",
+                table: "Chamado",
+                column: "NegocioId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Desenvolvedor_TipoDesenvolvedorId",
                 table: "Desenvolvedor",
                 column: "TipoDesenvolvedorId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Detalhe_ChamadoId",
+                table: "Detalhe",
+                column: "ChamadoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Detalhe_DesenvolvedorId",
                 table: "Detalhe",
                 column: "DesenvolvedorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Detalhe_NegocioId",
-                table: "Detalhe",
-                column: "NegocioId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -214,13 +224,13 @@ namespace ControleDeAmbiente.DAL.Migrations
                 name: "Api");
 
             migrationBuilder.DropTable(
-                name: "Chamado");
-
-            migrationBuilder.DropTable(
                 name: "Detalhe");
 
             migrationBuilder.DropTable(
                 name: "Usuario");
+
+            migrationBuilder.DropTable(
+                name: "Chamado");
 
             migrationBuilder.DropTable(
                 name: "Ambientes");
