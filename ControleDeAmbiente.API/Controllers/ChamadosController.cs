@@ -44,6 +44,7 @@ namespace ControleDeAmbiente.API.Controllers
                     chamado.Ativo = true;
                     await _chamadoRepositorio.Inserir(chamado);
 
+
                     return Ok(new
                     {
                         codigo = 1,
@@ -66,20 +67,26 @@ namespace ControleDeAmbiente.API.Controllers
             }
         }
 
-        [HttpDelete("Liberar/{AmbienteId}/{ApiId}")]
-        public async Task<ActionResult<Chamado>> LiberarAmbiente(int AmbienteId, int ApiId)
+        [HttpDelete("Liberar/{NumeroChamado}")]
+        public async Task<ActionResult<Chamado>> LiberarAmbiente(string NumeroChamado)
         {
             try
             {
+                var chamado = await _chamadoRepositorio.Detalhes(NumeroChamado);
+                chamado.Numero = "";
+                chamado.Descricao = "Ambiente Liberado";
+                chamado.NegocioId = 1;
 
-                var liberar = await _chamadoRepositorio.VerificarAlocacao(AmbienteId);
-                liberar.Numero = "";
-                liberar.Descricao = "";
+                foreach(var detalhe in chamado.Detalhes)
+                {
+                    detalhe.DesenvolvedorId = 1;
+                    detalhe.Numero = "";                    
+                }
 
-                liberar.Ativo = false;
+                chamado.Ativo = false;
 
-
-                await _chamadoRepositorio.Atualizar(liberar);
+              
+                await _chamadoRepositorio.Atualizar(chamado);
 
                 return Ok(new
                 {
@@ -109,12 +116,12 @@ namespace ControleDeAmbiente.API.Controllers
             }
         }
 
-        [HttpGet("Alterar/{AmbienteId}/{ApiId}")]
-        public async Task<ActionResult<Chamado>> ObterChamadoAmbienteApi(int AmbienteId, int ApiId)
+        [HttpGet("Alterar/{chamadoId}")]
+        public async Task<ActionResult<Chamado>> ObterChamadoAmbienteApi(int chamadoId)
         {
             try
             {
-                var alterar = await _chamadoRepositorio.VerificarAlocacao(AmbienteId);
+                var alterar = await _chamadoRepositorio.PegarPorId(chamadoId);
                 return Ok(alterar);
             }
             catch (Exception)
@@ -123,49 +130,48 @@ namespace ControleDeAmbiente.API.Controllers
             }
         }
 
-        [HttpPut("Alterar/{ambienteIdOld}/{apiIdOld}/{Id}")]
-        public async Task<ActionResult<Chamado>> AtualizarChamado(Chamado chamado ,int ambienteIdOld, int apiIdOld ,int Id)
+        [HttpPut("Alterar/{chamadoId}")]
+        public async Task<ActionResult<Chamado>> AtualizarChamado(Chamado chamado ,int chamadoId)
         {
             try
             {
-              
-                var retorno = await _chamadoRepositorio.VerificarAlocacao(chamado.AmbienteId);
 
-                if (retorno == null || retorno.AmbienteId == ambienteIdOld)
+                var atualizar = await _chamadoRepositorio.PegarPorId(chamadoId);
+
+                if (atualizar.ChamadoId == chamadoId)
                 {
-                    var atualizar = await _chamadoRepositorio.PegarPorId(chamado.ChamadoId);
-                    if (chamado.ChamadoId == Id)
+                    atualizar.Numero = chamado.Numero;
+                    atualizar.AmbienteId = chamado.AmbienteId;
+                    atualizar.Descricao = chamado.Descricao;
+
+                    atualizar.Detalhes[0].DesenvolvedorId = chamado.Detalhes[0].DesenvolvedorId;
+                    atualizar.Detalhes[0].Numero = chamado.Detalhes[0].Numero;
+
+                    atualizar.Detalhes[1].DesenvolvedorId = chamado.Detalhes[1].DesenvolvedorId;
+                    atualizar.Detalhes[1].Numero = chamado.Detalhes[1].Numero;
+
+                    atualizar.Detalhes[2].DesenvolvedorId = chamado.Detalhes[2].DesenvolvedorId;
+                    atualizar.Detalhes[2].Numero = chamado.Detalhes[2].Numero;
+
+                    atualizar.Ativo = true;
+
+                    await _chamadoRepositorio.Atualizar(atualizar);
+
+                    return Ok(new
                     {
-
-                        atualizar.ChamadoId = chamado.ChamadoId;
-                        atualizar.Numero = chamado.Numero;
-                        atualizar.AmbienteId = chamado.AmbienteId;                        
-                        atualizar.Descricao = chamado.Descricao;
-
-                        atualizar.Ativo = true;
-
-                        await _chamadoRepositorio.Atualizar(atualizar);
-
-                        return Ok(new
-                        {
-                            mensagem = "Chamado atualizado com sucesso"
-                        });
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
+                        mensagem = "Chamado atualizado com sucesso"
+                    });
                 }
                 else
                 {
                     return Ok(new
                     {
                         codigo = 2,
-                        mensagem = $"Não foi possível alocar no Ambiente {1} a API - Chamado {retorno.Numero}"
+                        mensagem = $"Não foi possível atualizar o chamado"
                     });
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return BadRequest();

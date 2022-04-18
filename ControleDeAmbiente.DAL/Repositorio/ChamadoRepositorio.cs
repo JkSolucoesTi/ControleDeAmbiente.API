@@ -53,6 +53,25 @@ namespace ControleDeAmbiente.DAL.Repositorio
             }
         }
 
+        public new async Task<Chamado> PegarPorId(int chamadoId)
+        {
+            try
+            {
+                var chamado = await _contexto.Chamados
+                   .Include(a => a.Detalhes)
+                   .Include(a => a.Ambiente)
+                   .ThenInclude(a => a.Desenvolvedor)
+                   .Where(a => a.ChamadoId == chamadoId)
+                   .FirstOrDefaultAsync();
+
+                return chamado;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public Task<Chamado> VerificarAlocacao(int ambienteId)
         {
             try
