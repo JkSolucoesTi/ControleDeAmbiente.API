@@ -25,10 +25,6 @@ namespace ControleDeAmbiente.DAL.Mapeamento
                    .HasForeignKey(d => d.DesenvolvedorId)
                    .OnDelete(DeleteBehavior.NoAction)
                    .HasConstraintName("FK_Detalhes_Desenvolvedor");
-
-
-
-
         }
     }
 }

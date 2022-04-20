@@ -177,5 +177,19 @@ namespace ControleDeAmbiente.API.Controllers
                 return BadRequest();
             }
         }
+
+        //[HttpGet("GerarExcel")]
+        //public async Task<ActionResult<Chamado>> GerarExcel()
+        //{
+        //    try
+        //    {
+        //        var chamados = await _chamadoRepositorio.PegarTodos().ToListAsync();
+        //        return Ok(chamados);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
     }
 }

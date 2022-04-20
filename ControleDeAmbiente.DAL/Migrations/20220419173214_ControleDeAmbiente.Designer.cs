@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ControleDeAmbiente.DAL.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20220414140739_ControleDeAmbiente")]
+    [Migration("20220419173214_ControleDeAmbiente")]
     partial class ControleDeAmbiente
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

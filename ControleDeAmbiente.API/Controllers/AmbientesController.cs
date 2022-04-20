@@ -17,10 +17,13 @@ namespace ControleDeAmbiente.API.Controllers
     public class AmbientesController : ControllerBase
     {
         private readonly IAmbienteRepositorio _ambienteRepositorio;
+        private readonly IChamadoRepositorio _chamadoRepositorio;
 
-        public AmbientesController(IAmbienteRepositorio ambienteRepositorio)
+        public AmbientesController(IAmbienteRepositorio ambienteRepositorio,IChamadoRepositorio chamadoRepositorio)
         {
             _ambienteRepositorio = ambienteRepositorio;
+            _chamadoRepositorio = chamadoRepositorio;
+
         }
 
         [HttpGet()]
@@ -29,9 +32,43 @@ namespace ControleDeAmbiente.API.Controllers
             try
             {
 
-                var x = await _ambienteRepositorio.PegarTodosTeste().ToListAsync();
-//                var ambientes = await _ambienteRepositorio.PegarTodos().ToListAsync();
-                return Ok(x);
+                var ambientes = await _ambienteRepositorio.PegarTodosTeste().ToListAsync();
+                return Ok(ambientes);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+
+        }
+
+        [HttpGet("Disponivel")]
+        public async Task<ActionResult<IEnumerable<Ambiente>>> ObterAmbientesDisponiveis()
+        {
+            try
+            {
+
+                var ambientes = await _ambienteRepositorio.PegarTodosTeste().ToListAsync();
+                var chamados = await _chamadoRepositorio.PegarTodos().ToListAsync();
+                var ambienteOcupado = new List<Ambiente>();
+
+                foreach (var ambiente in ambientes)
+                {
+                    foreach (var chamado in chamados)
+                    {
+                        if (ambiente.Nome == chamado.Ambiente.Nome)
+                        {
+                            ambienteOcupado.Add(ambiente);
+                        }
+                    }
+                }
+
+                foreach (var remover in ambienteOcupado)
+                {
+                    ambientes.Remove(remover);
+                }
+
+                return Ok(ambientes);
             }
             catch (Exception ex)
             {
