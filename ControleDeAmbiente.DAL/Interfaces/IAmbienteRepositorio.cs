@@ -1,4 +1,5 @@
 ﻿using ControleDeAmbiente.BLL.Model;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,6 +9,10 @@ namespace ControleDeAmbiente.DAL.Interfaces
     {
         new IQueryable<Ambiente> PegarTodos();
 
+        public IQueryable<Ambiente> PegarTodosTeste();
+
         new Task<Ambiente> PegarPorId(int id);
+
+        Task<Ambiente> ObterPorIdTeste(int id);
     }
 }

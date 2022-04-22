@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ControleDeAmbiente.DAL.Interfaces
 {
-    public interface IAndroidRepositorio : IRepositorioGenerico<Android> 
+    public interface ITipoDesenvolvedorRepositorio : IRepositorioGenerico<TipoDesenvolvedor>
     {
     }
 }

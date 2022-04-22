@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ControleDeAmbiente.DAL.Interfaces
 {
-    public interface IWebRepositorio : IRepositorioGenerico<Web>
+    public interface IDetalheRepositorio : IRepositorioGenerico<Detalhe>
     {
     }
 }

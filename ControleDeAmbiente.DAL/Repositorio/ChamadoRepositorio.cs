@@ -15,20 +15,15 @@ namespace ControleDeAmbiente.DAL.Repositorio
             _contexto = contexto;
         }
 
-        public async Task<Chamado> Detalhes(string numeroChamado, string nomeAmbiente)
+        public async Task<Chamado> Detalhes(string numeroChamado)
         {
             try
             {
                 return await _contexto
                     .Chamados
-                    .Include(a => a.Ambiente)
-                    .Include(a => a.Api)
-                    .Include(a => a.Web)
-                    .Include(a => a.Ios)
-                    .Include(a => a.Android)
-                    .Include(a => a.Negocio)
+                    .Include(a => a.Detalhes)
+                    .ThenInclude(a => a.Desenvolvedor)
                     .Where(i => i.Numero == numeroChamado)
-                    .Where(i => i.Ambiente.Nome == nomeAmbiente)
                     .FirstOrDefaultAsync();
             }
             catch (Exception)
@@ -43,13 +38,7 @@ namespace ControleDeAmbiente.DAL.Repositorio
             try
             {
                 var chamados = _contexto.Chamados
-                   .Include(a => a.Ambiente)
-                   .Include(a => a.Android)
-                   .Include(i => i.Ios)
-                   .Include(a => a.Web)
-                   .Include(n => n.Negocio)
-                   .Include(a => a.Api);
-
+                   .Include(a => a.Ambiente);
                 return chamados;
 
             }
@@ -59,16 +48,33 @@ namespace ControleDeAmbiente.DAL.Repositorio
             }
         }
 
-        public Task<Chamado> VerificarAlocacao(int ambienteId, int apiId)
+        public new async Task<Chamado> PegarPorId(int chamadoId)
+        {
+            try
+            {
+                var chamado = await _contexto.Chamados
+                   .Include(a => a.Detalhes)
+                   .Include(a => a.Ambiente)
+                   .ThenInclude(a => a.Desenvolvedor)
+                   .Where(a => a.ChamadoId == chamadoId)
+                   .FirstOrDefaultAsync();
+
+                return chamado;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public Task<Chamado> VerificarAlocacao(int ambienteId)
         {
             try
             {
                 var resultado =  _contexto
                     .Chamados
                     .Include(a => a.Ambiente)
-                    .Include(a => a.Api)
-                    .Where(i => i.AmbienteId == ambienteId)
-                    .Where(i => i.ApiId == apiId)
+                    .Where(a => a.AmbienteId == ambienteId)
                     .FirstOrDefault();
 
                 return Task.FromResult(resultado);

@@ -1,6 +1,7 @@
 using ControleDeAmbiente.DAL;
 using ControleDeAmbiente.DAL.Interfaces;
 using ControleDeAmbiente.DAL.Repositorio;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ControleDeAmbiente.API
@@ -31,12 +34,33 @@ namespace ControleDeAmbiente.API
             services.AddDbContext<Contexto>(opcoes => opcoes.UseSqlServer(Configuration.GetConnectionString("ConexaoDB")));
 
             services.AddScoped<IAmbienteRepositorio,AmbienteRepositorio>();
-            services.AddScoped<IWebRepositorio, WebRepositorio>();
-            services.AddScoped<IIosRepositorio, IosRepositorio>();
-            services.AddScoped<IAndroidRepositorio, AndroidRepositorio>();
             services.AddScoped<INegocioRepositorio , NegocioRepositorio>();
             services.AddScoped<IApiRepositorio, ApiRepositorio>();
             services.AddScoped<IChamadoRepositorio, ChamadoRepositorio>();
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<IServidorRepositorio, ServidorRepositorio>();
+            services.AddScoped<IDesenvolvedorRepositorio, DesenvolvedorRepositorio>();
+            services.AddScoped<ITipoDesenvolvedorRepositorio, TipoDesenvolvedorRepositorio>();
+            services.AddScoped<IDetalheRepositorio, DetalheRepositorio>();
+
+            var key = Encoding.ASCII.GetBytes(Settings.ChaveSecreta);
+
+            services.AddAuthentication(opcoes =>
+            {
+                opcoes.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opcoes.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(opcoes =>
+                {
+                    opcoes.RequireHttpsMetadata = false;
+                    opcoes.SaveToken = true;
+                    opcoes.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateAudience = false
+                    };
+                });
 
             services.AddControllers()
                 .AddJsonOptions(opcoes =>
@@ -72,6 +96,7 @@ namespace ControleDeAmbiente.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
                 c.RoutePrefix = string.Empty;
+                c.DefaultModelsExpandDepth(-1);
             });
 
             app.UseCors(opcoes => opcoes.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());

@@ -7,11 +7,11 @@ using System.Text;
 
 namespace ControleDeAmbiente.DAL.Mapeamento
 {
-    public class IosMap : IEntityTypeConfiguration<Ios>
+    public class DesenvolvedorMap : IEntityTypeConfiguration<Desenvolvedor>
     {
-        public void Configure(EntityTypeBuilder<Ios> builder)
+        public void Configure(EntityTypeBuilder<Desenvolvedor> builder)
         {
-            builder.ToTable("Ios");
+            builder.ToTable("Desenvolvedor");
             builder.HasKey(a => a.Id);
 
             builder.Property(a => a.Nome).HasMaxLength(50);
@@ -22,7 +22,6 @@ namespace ControleDeAmbiente.DAL.Mapeamento
 
             builder.Property(a => a.Email).HasMaxLength(50);
             builder.Property(a => a.Email).IsRequired();
-
 
         }
     }
