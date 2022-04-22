@@ -50,39 +50,39 @@ values('','',1,1,0)
 
 insert into detalhe(Numero,ChamadoId,DesenvolvedorId)
 values
- ('',21,4)
-,('',21,4)
-,('',21,4)
-,('',22,4)
-,('',22,4)
-,('',22,4)
-,('',23,4)
-,('',23,4)
-,('',23,4)
-,('',24,4)
-,('',24,4)
-,('',24,4)
-,('',25,4)
-,('',25,4)
-,('',25,4)
-,('',26,4)
-,('',26,4)
-,('',26,4)
-,('',27,4)
-,('',27,4)
-,('',27,4)
-,('',28,4)
-,('',28,4)
-,('',28,4)
-,('',29,4)
-,('',29,4)
-,('',29,4)
-,('',30,4)
-,('',30,4)
-,('',30,4)
-,('',31,4)
-,('',31,4)
-,('',31,4)
+ ('',1,4)
+,('',1,4)
+,('',1,4)
+,('',2,4)
+,('',2,4)
+,('',2,4)
+,('',3,4)
+,('',3,4)
+,('',3,4)
+,('',4,4)
+,('',4,4)
+,('',4,4)
+,('',5,4)
+,('',5,4)
+,('',5,4)
+,('',6,4)
+,('',6,4)
+,('',6,4)
+,('',7,4)
+,('',7,4)
+,('',7,4)
+,('',8,4)
+,('',8,4)
+,('',8,4)
+,('',9,4)
+,('',9,4)
+,('',9,4)
+,('',10,4)
+,('',10,4)
+,('',10,4)
+,('',11,4)
+,('',11,4)
+,('',11,4)
 
 insert into Usuario(Login,Nome,Email,Senha,Perfil)
 values(
@@ -90,7 +90,13 @@ values(
 'Marco Gonçalves',
 'marco.goncalves@bancodaycoval.com.br',
 '12345678',
-'ADMIN')
+'ADMIN'),
+(
+'dv0001',
+'Desenvolvedor',
+'desenvolvedor@bancodaycoval.com.br',
+'teste@1234',
+'USER')
 
 insert into Servidor(Nome,Dominio)
 Values
@@ -101,17 +107,17 @@ Values
 ('Dayconnect','SDAYSP06D044')
 
 insert into ambientes(Nome,DesenvolvedorId,ServidorId,Acesso)
-values('DEV 01',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev1/api/default/swagger/ui/index'),
-	  ('DEV 02',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev2/api/default/swagger/ui/index'),
-	  ('DEV 03',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev3/api/default/swagger/ui/index'),
-	  ('DEV 04',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev4/api/default/swagger/ui/index'),
-	  ('DEV 05',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev5/api/default/swagger/ui/index'),
-	  ('DEV 06',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev6/api/default/swagger/ui/index'),
-	  ('DEV 07',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev7/api/default/swagger/ui/index'),
-	  ('DEV 08',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev8/api/default/swagger/ui/index'),
-	  ('DEV 09',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev9/api/default/swagger/ui/index'),
-	  ('DEV 10',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev10/api/default/swagger/ui/index'),
-	  ('DEV 11',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev11/api/default/swagger/ui/index'),
+values('DEV01',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev1/api/default/swagger/ui/index'),
+	  ('DEV02',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev2/api/default/swagger/ui/index'),
+	  ('DEV03',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev3/api/default/swagger/ui/index'),
+	  ('DEV04',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev4/api/default/swagger/ui/index'),
+	  ('DEV05',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev5/api/default/swagger/ui/index'),
+	  ('DEV06',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev6/api/default/swagger/ui/index'),
+	  ('DEV07',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev7/api/default/swagger/ui/index'),
+	  ('DEV08',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev8/api/default/swagger/ui/index'),
+	  ('DEV09',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev9/api/default/swagger/ui/index'),
+	  ('DEV10',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev10/api/default/swagger/ui/index'),
+	  ('DEV11',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev11/api/default/swagger/ui/index'),
 	  ('Desenv01',1,5,'http://sdaysp06d044:8001/'),
   	  ('Desenv02',1,5,'http://sdaysp06d044:8002/'),
   	  ('Desenv03',1,5,'http://sdaysp06d044:8003/'),
