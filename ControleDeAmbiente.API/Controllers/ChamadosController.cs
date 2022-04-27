@@ -13,7 +13,7 @@ namespace ControleDeAmbiente.API.Controllers
     public class ChamadosController : ControllerBase
     {
         private readonly IChamadoRepositorio _chamadoRepositorio;
-        public ChamadosController(IChamadoRepositorio chamadoRepositorio)
+        public ChamadosController(IChamadoRepositorio chamadoRepositorio, IAmbienteRepositorio ambienteRepositorio)
         {
             _chamadoRepositorio = chamadoRepositorio;
         }
@@ -143,6 +143,7 @@ namespace ControleDeAmbiente.API.Controllers
                     atualizar.Numero = chamado.Numero;
                     atualizar.AmbienteId = chamado.AmbienteId;
                     atualizar.Descricao = chamado.Descricao;
+                    atualizar.NegocioId = chamado.NegocioId;
 
                     atualizar.Detalhes[0].DesenvolvedorId = chamado.Detalhes[0].DesenvolvedorId;
                     atualizar.Detalhes[0].Numero = chamado.Detalhes[0].Numero;

@@ -10,18 +10,18 @@ values('Web'),('Android'),('IOS'),('Sem Alocação')
 insert into Desenvolvedor(Nome,Usuario,Email,TipoDesenvolvedorId)
 values
 ('Sem alocação','bd0001','bancodaycoval@bancodaycoval.com.br',4),
-('Ciro','jm0002','marco.goncalves@bancodaycoval.com.br',1),
+('Ciro','jm0002','ciro.batista@bancodaycoval.com.br',1),
 ('Marco','jm0002','marco.goncalves@bancodaycoval.com.br',1),
-('Michele','jm0002','marco.goncalves@bancodaycoval.com.br',1),
-('Marcelo','jm0002','marco.goncalves@bancodaycoval.com.br',1),
-('Douglas','jm0002','marco.goncalves@bancodaycoval.com.br',1),
-('Carlos','jm0002','marco.goncalves@bancodaycoval.com.br',1),
-('Adauto','jm0002','marco.goncalves@bancodaycoval.com.br',2),
-('Valeria','jm0002','marco.goncalves@bancodaycoval.com.br',2),
-('Romulo','jm0002','marco.goncalves@bancodaycoval.com.br',2),
-('Jarber','jm0002','marco.goncalves@bancodaycoval.com.br',3),
-('Will','jm0002','marco.goncalves@bancodaycoval.com.br',3),
-('Andre','jm0002','marco.goncalves@bancodaycoval.com.br',3)
+('Michele','jm0002','michele.ribeiro@bancodaycoval.com.br',1),
+('Marcelo','jm0002','marcelo.alves@bancodaycoval.com.br',1),
+('Douglas','jm0002','douglas.nacbar@bancodaycoval.com.br',1),
+('Carlos','jm0002','carlos.carmo@bancodaycoval.com.br',1),
+('Adauto','jm0002','adauto.ferreira@bancodaycoval.com.br',2),
+('Valeria','jm0002','valeria.rodrigues@bancodaycoval.com.br',2),
+('Romulo','jm0002','romulo.pereira@bancodaycoval.com.br',2),
+('Jarber','jm0002','jaber.shamali@bancodaycoval.com.br',3),
+('Willian','jm0002','willian.candido@bancodaycoval.com.br',3),
+('Andre','jm0002','andre.couto@bancodaycoval.com.br',3)
 
 
 insert into Api(Nome,Descricao)
@@ -85,18 +85,21 @@ values
 ,('',11,4)
 
 insert into Usuario(Login,Nome,Email,Senha,Perfil)
-values(
-'jm0002',
-'Marco Gonçalves',
-'marco.goncalves@bancodaycoval.com.br',
-'12345678',
-'ADMIN'),
+values
 (
 'dv0001',
 'Desenvolvedor',
 'desenvolvedor@bancodaycoval.com.br',
 'teste@1234',
 'USER')
+,
+(
+'jm0002',
+'Marco Gonçalves',
+'marco.goncalves@bancodaycoval.com.br',
+'12345678',
+'ADMIN')
+
 
 insert into Servidor(Nome,Dominio)
 Values
@@ -148,23 +151,23 @@ values('DEV01',1,1,'http://sdaysp06qa009/desenvolvimento/dayconnect/dev1/api/def
 	  ('Remoting.Desenv13',1,2,''),
 	  ('Remoting.Desenv14',1,2,''),
 	  ('Remoting.Desenv15',1,2,''),
-	  ('DayconnectBackoffice.Desenv01',1,3,''),
-	  ('DayconnectBackoffice.Desenv02',1,3,''),
-	  ('DayconnectBackoffice.Desenv03',1,3,''),
-	  ('DayconnectBackoffice.Desenv04',1,3,''),
-	  ('DayconnectBackoffice.Desenv05',1,3,''),
-	  ('DayconnectBackoffice.Desenv06',1,3,''),
-	  ('DayconnectBackoffice.Desenv07',1,3,''),
-	  ('DayconnectBackoffice.Desenv08',1,3,''),
-	  ('DayconnectBackoffice.Desenv09',1,3,''),
-	  ('DayconnectBackoffice.Desenv10',1,3,''),
-	  ('DayconnectBackoffice.Desenv11',1,3,''),
-	  ('DayconnectBackoffice.Desenv12',1,3,''),
-	  ('DayconnectBackoffice.Desenv13',1,3,''),
-	  ('DayconnectBackoffice.Desenv14',1,3,''),
-	  ('DayconnectBackoffice.Desenv15',1,3,''),
-	  ('WcfGerenciadorInvestimento',1,4,''),
-	  ('WebApiIntegracaoInvestimento',1,4,'')
+	  ('DayconnectBackoffice.Desenv01',1,3,'http://sdaysp06d041:8001/'),
+	  ('DayconnectBackoffice.Desenv02',1,3,'http://sdaysp06d041:8002/'),
+	  ('DayconnectBackoffice.Desenv03',1,3,'http://sdaysp06d041:8003/'),
+	  ('DayconnectBackoffice.Desenv04',1,3,'http://sdaysp06d041:8004/'),
+	  ('DayconnectBackoffice.Desenv05',1,3,'http://sdaysp06d041:8005/'),
+	  ('DayconnectBackoffice.Desenv06',1,3,'http://sdaysp06d041:8006/'),
+	  ('DayconnectBackoffice.Desenv07',1,3,'http://sdaysp06d041:8007/'),
+	  ('DayconnectBackoffice.Desenv08',1,3,'http://sdaysp06d041:8008/'),
+	  ('DayconnectBackoffice.Desenv09',1,3,'http://sdaysp06d041:8009/'),
+	  ('DayconnectBackoffice.Desenv10',1,3,'http://sdaysp06d041:8010/'),
+	  ('DayconnectBackoffice.Desenv11',1,3,'http://sdaysp06d041:8011/'),
+	  ('DayconnectBackoffice.Desenv12',1,3,'http://sdaysp06d041:8012/'),
+	  ('DayconnectBackoffice.Desenv13',1,3,'http://sdaysp06d041:8013/'),
+	  ('DayconnectBackoffice.Desenv14',1,3,'http://sdaysp06d041:8014/'),
+	  ('DayconnectBackoffice.Desenv15',1,3,'http://sdaysp06d041:8015/'),
+	  ('WcfGerenciadorInvestimento',1,4,'http://sdaysp06d043/WcfGerenciadorInvestimento/Daycoval.GI.WcfService.ReportContract.svc'),
+	  ('WebApiIntegracaoInvestimento',1,4,'http://sdaysp06d043/WebApiIntegracaoInvestimento/swagger/ui/index')
 
 
 COMMIT TRAN

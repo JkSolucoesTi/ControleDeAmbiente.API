@@ -22,7 +22,7 @@ namespace ControleDeAmbiente.DAL.Repositorio
                 return await _contexto
                     .Chamados
                     .Include(a => a.Detalhes)
-                    .ThenInclude(a => a.Desenvolvedor)
+                    .ThenInclude(a => a.Desenvolvedor)                    
                     .Where(i => i.Numero == numeroChamado)
                     .FirstOrDefaultAsync();
             }
@@ -38,7 +38,9 @@ namespace ControleDeAmbiente.DAL.Repositorio
             try
             {
                 var chamados = _contexto.Chamados
-                   .Include(a => a.Ambiente);
+                   .Include(a => a.Ambiente)
+                   .Include(a => a.Negocio);
+                
                 return chamados;
 
             }
